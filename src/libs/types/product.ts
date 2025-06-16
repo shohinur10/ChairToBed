@@ -47,6 +47,7 @@ export interface ProductUpdateInput {
 }
 
 export interface ProductInquiry {
+  order: string;
   page: number;
   limit: number;
   search?: string;

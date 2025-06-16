@@ -4,7 +4,9 @@ import { T } from "../libs/types/common";
 import ProductService from "../models/Product.service";
 import { AdminRequest, ExtendedRequest } from "../libs/types/member";
 import { ProductInput, ProductInquiry } from "../libs/types/product";
-import { ProductCollection } from "../libs/enums/product.enum";
+import { ProductCategory } from "../libs/enums/product.enum";
+
+
 
 const productService = new ProductService;
 const productController: T = {};
@@ -14,15 +16,15 @@ const productController: T = {};
  productController.getProducts = async (req: Request, res:Response) => {
     try{
         console.log("getProducts");       
-        const {page, limit, order, productCollection, search} = req.query;
+        const {page, limit, order, ProductCategory, search} = req.query;
         const inquiry: ProductInquiry = {
           order: String(order),
           page: Number(page),
           limit: Number(limit),
-          productCollection: ProductCollection.DISH,
+          productCategory: ProductCategory ? ProductCategory as ProductCategory : undefined,
           search: ""
         };
-        if(productCollection) inquiry.productCollection = productCollection as ProductCollection;
+        if(ProductCategory) inquiry.productCategory = ProductCategory as ProductCategory;
 
         if(search) inquiry.search = String(search);
 
@@ -80,7 +82,7 @@ productController.createNewProduct = async (req:AdminRequest, res:Response)=>{
 
         const data: ProductInput = req.body;
         data.productImages = req.files?.map(ele =>{
-            return ele.path.replace(/\\/g,"/");
+            return ele.path.replace(/\\/g,"/");// for windows logics
         });
         await productService.createNewProduct(data);
 

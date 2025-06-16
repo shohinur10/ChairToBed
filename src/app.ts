@@ -1,12 +1,12 @@
 import cors from 'cors';
 import express from 'express';
-import router from './router';
 import routerAdmin from './router-admin';
+import router from './router'; // Import the missing router
 import cookieParser from "cookie-parser";
 import morgan from 'morgan';
-import { MORGAN_FORMAT, } from "./src/libs/utils/config";
+import { MORGAN_FORMAT, } from "./libs/utils/config";
 import session from 'express-session';
-import { T } from "./src/libs/types/common"
+import { T } from "./libs/types/common"
 
 
 import connectMongoDB from 'connect-mongodb-session'; // Ensure you have this package installed

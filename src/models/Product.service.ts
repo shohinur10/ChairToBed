@@ -1,5 +1,4 @@
 
-import { Product, ProductInput, ProductInquiry, ProductUpdateInput } from "../libs/types/product";
 // Ensure the correct path to the Product.model file
 import ProductModel from "../schema/Product.model"; // Update the path if necessary
 import Errors, { HttpCode, Message } from "../libs/utils/Errors";
@@ -10,6 +9,7 @@ import { ObjectId } from "mongoose";
 import { ViewInput } from "../libs/types/view";
 import { ViewGroup } from "../libs/enums/view.enum";
 import ViewService from "./View.service";
+import { Product, ProductInput, ProductInquiry, ProductUpdateInput } from "../libs/types/product";
 
     class ProductService {
       static updateChosenProduct(id: string, body: any) {
@@ -32,8 +32,8 @@ import ViewService from "./View.service";
     /** SPA */
     public async getProducts(inquiry: ProductInquiry): Promise<Product[]>{
       const match: T ={};
-      if (inquiry.productCollection)
-        match.productCollection = inquiry.;
+      if (inquiry.productCategory)
+        match.ProductCategory= inquiry.productCategory;
       if (inquiry.search)
       match.productName ={
       $regex:new RegExp(inquiry.search, "i")}; // regular expression  case-intensive "I"

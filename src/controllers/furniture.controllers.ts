@@ -9,9 +9,9 @@ import Errors, { HttpCode, Message } from "../libs/utils/Errors";
 
 const memberService = new MemberService();
 
-const restaurantController: T = {};
+const furnitureController: T = {};
 
-restaurantController.goHome = (req: Request, res: Response) => {
+furnitureController.goHome = (req: Request, res: Response) => {
   try {
     console.log("goHome");
     res.render("home");
@@ -21,7 +21,7 @@ restaurantController.goHome = (req: Request, res: Response) => {
   }
 };
 
-restaurantController.getSignup = (req: Request, res: Response) => {
+furnitureController.getSignup = (req: Request, res: Response) => {
   try {
     console.log("getSignup");
     res.render("signup");
@@ -30,7 +30,7 @@ restaurantController.getSignup = (req: Request, res: Response) => {
     res.redirect("/admin");
   }
 };
-restaurantController.getLogin = (req: Request, res: Response) => {
+furnitureController.getLogin = (req: Request, res: Response) => {
   try {
     console.log("getLogin");
     res.render("login"); // This should render the login.ejs view
@@ -40,7 +40,7 @@ restaurantController.getLogin = (req: Request, res: Response) => {
     
   }
 };
-restaurantController.processSignup = async (
+furnitureController.processSignup = async (
   req: AdminRequest,
   res: Response
 ) => {
@@ -53,7 +53,7 @@ restaurantController.processSignup = async (
 
     const newMember: MemberInput = req.body;
     newMember.memberImage = file?.path;
-    newMember.memberType = MemberType.RESTAURANT;
+    newMember.memberType = MemberType.ADMIN;
     const result = await memberService.processSignup(newMember);
     //TODO: SESSIONS AUTHENTICATION
     req.session.member = result;
@@ -71,7 +71,7 @@ restaurantController.processSignup = async (
 };
 
 // ✅ FIXED: processLogin moved outside
-restaurantController.processLogin = async (
+furnitureController.processLogin = async (
   req: AdminRequest,
   res: Response
 ) => {
@@ -95,7 +95,7 @@ restaurantController.processLogin = async (
 };
 
 
-restaurantController.logout = async (req: AdminRequest, res: Response) => {
+furnitureController.logout = async (req: AdminRequest, res: Response) => {
   try {
     console.log("logout");
      req.session.destroy(function(){
@@ -107,7 +107,7 @@ restaurantController.logout = async (req: AdminRequest, res: Response) => {
   }
 };
 
-restaurantController.getUsers = async (req: Request, res: Response) => {
+furnitureController.getUsers = async (req: Request, res: Response) => {
   try {
     console.log("getUsers")
     const result = await memberService.getUsers();
@@ -119,7 +119,7 @@ restaurantController.getUsers = async (req: Request, res: Response) => {
   }
 };
 
-restaurantController.updatedChosenUser = async (req: Request, res: Response) => {
+furnitureController.updatedChosenUser = async (req: Request, res: Response) => {
   try {
     console.log("updatedChosenUser")
     const result = await memberService.updatedChosenUser(req.body);
@@ -137,7 +137,7 @@ restaurantController.updatedChosenUser = async (req: Request, res: Response) => 
 };
 
 // Authentication check  for session
-restaurantController.checkAuthSession = async (req: AdminRequest, res: Response) => {
+furnitureController.checkAuthSession = async (req: AdminRequest, res: Response) => {
   try {
     console.log("checkAuthSession");
     if(req.session?.member) 
@@ -150,12 +150,12 @@ restaurantController.checkAuthSession = async (req: AdminRequest, res: Response)
 };
 
 // Authorization  middleware
-restaurantController.verifyRestaurant =(
+furnitureController.verifyRestaurant =(
   req: AdminRequest,
    res: Response,
    next: NextFunction
 ) => {
-    if(req.session?.member?.memberType === MemberType.RESTAURANT) {
+    if(req.session?.member?.memberType === MemberType.ADMIN) {
       req.member = req.session.member;
       next(); // let to move next step  
     }else {
@@ -166,4 +166,4 @@ restaurantController.verifyRestaurant =(
   }
 };
 
-export default restaurantController;
+export default furnitureController;
