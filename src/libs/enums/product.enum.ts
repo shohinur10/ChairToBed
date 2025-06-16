@@ -1,6 +1,6 @@
 // src/enums/product.enum.ts
 
-export enum FurnitureCategory {
+export enum ProductCategory {
     CHAIR = 'Chair',
     TABLE = 'Table',
     SOFA = 'Sofa',
@@ -14,20 +14,17 @@ export enum FurnitureCategory {
     OTHER = 'Other',
   }
   
-  export enum FurnitureMaterial {
+  export enum ProductMaterial {
     WOOD = 'Wood',
     METAL = 'Metal',
     GLASS = 'Glass',
     PLASTIC = 'Plastic',
     FABRIC = 'Fabric',
     LEATHER = 'Leather',
-    BAMBOO = 'Bamboo',
-    MARBLE = 'Marble',
-    COMPOSITE = 'Composite',
     OTHER = 'Other',
   }
   
-  export enum FurnitureColor {
+  export enum ProductColor {
     BLACK = 'Black',
     WHITE = 'White',
     GRAY = 'Gray',
@@ -40,16 +37,17 @@ export enum FurnitureCategory {
     OTHER = 'Other',
   }
   
-  export enum FurnitureStyle {
+  export enum ProductStyle {
     MODERN = 'Modern',
     CONTEMPORARY = 'Contemporary',
-    TRADITIONAL = 'Traditional',
-    RUSTIC = 'Rustic',
+    Traditional = "Traditional",
     INDUSTRIAL = 'Industrial',
-    SCANDINAVIAN = 'Scandinavian',
-    MINIMALIST = 'Minimalist',
-    BOHEMIAN = 'Bohemian',
-    VINTAGE = 'Vintage',
     OTHER = 'Other',
+  }
+
+  export  enum ProductStatus{
+    PAUSE = "PAUSE",
+    PROCESS = "PROCESS",
+    DELETE = "DELETE",
   }
   

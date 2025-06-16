@@ -1,8 +1,8 @@
 {
   "name": "chairtobed",
   "version": "1.0.0",
-  "description": "This is at the beginning of new life ",
-  "main": "isrc/index.ts",
+  "description": "this is the beginning of the new life",
+  "main": "src/server.ts",
   "scripts": {
     "start": "ts-node src/server.ts",
     "start:dev": "nodemon --exec ts-node src/server.ts",
