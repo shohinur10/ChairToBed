@@ -29,7 +29,7 @@
       <div class="board">
         <div class="dishes-table">
           <span class="new-dish-txt" style="margin-bottom: 30px">
-            RESTAURANT MENU
+            NEW ARRIVES
           </span>
           <table class="table table-bordered table-hover">
             <thead class="thead-light">
@@ -37,27 +37,24 @@
                 <th scope="col">T/r</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Product Type</th>
-                <th scope="col">Product Volume</th>
+                <th scope="col">Product Material</th>
                 <th scope="col">Product Price</th>
                 <th scope="col">Product Left Count</th>
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <!--  LOOP PRODUCTS: START  -->
 
             <tbody style="background: white">
               <% products.map(function(value, key) { %>
                 <tr>
                   <td><%= key + 1 %></td>
                   <td><%= value.productName %></td>
-                  <td><%= value.productCollection %></td>
-                  <td><%= value.productCollection === 'DRINK' ? value.productVolume : value.productSize %></td>
+                  <td><%= value.productCategory %></td>
+                  <td><%= value.productCategory === 'Chair' ? value.material : value.productColor %></td>
                   <td><%= value.productPrice %></td>
                   <td><%= value.productLeftCount %></td>
                   <td>
-                    <select class="spec-select new-product-status"
-                      id="<%= value._id %>"
-                      >
+                    <select class="spec-select new-product-status" id="<%= value._id %>">
                       <option value="PAUSE" <%= value.productStatus === 'PAUSE' ? 'selected' : '' %>>PAUSE</option>
                       <option value="PROCESS" <%= value.productStatus === 'PROCESS' ? 'selected' : '' %>>PROCESS</option>
                       <option value="DELETE" <%= value.productStatus === 'DELETE' ? 'selected' : '' %>>DELETE</option>
@@ -66,22 +63,15 @@
                 </tr>
               <% }) %>
             </tbody>
-            
-           
-
-            <!--  LOOP PRODUCTS: END  -->
           </table>
-          <div
-            class="long-input"
-            style="align-items: flex-end; margin-bottom: 25px"
-          >
-            <button class="btn btn-primary" id="process-btn">
-              New Product
-            </button>
+
+          <div class="long-input" style="align-items: flex-end; margin-bottom: 25px">
+            <button class="btn btn-primary" id="process-btn">New Product</button>
           </div>
         </div>
+
         <form
-        onsubmit="return validateForm()"
+          onsubmit="return validateForm()"
           action="/admin/product/create"
           method="POST"
           class="dish-container"
@@ -90,6 +80,7 @@
           <div class="long-input" style="display: flex; align-items: center">
             <span class="new-dish-txt">NEW PRODUCT DETAIL</span>
           </div>
+
           <div class="login-input-frame">
             <div class="long-input">
               <label>Product Name</label>
@@ -98,6 +89,7 @@
                 placeholder="Name"
                 name="productName"
                 class="product-name"
+                required
               />
             </div>
             <input
@@ -107,6 +99,7 @@
               hidden
             />
           </div>
+
           <div class="half-input-frame">
             <div class="half-input">
               <label>Product Price</label>
@@ -115,6 +108,9 @@
                 placeholder="Price"
                 name="productPrice"
                 class="product-price"
+                min="0"
+                step="0.01"
+                required
               />
             </div>
             <div class="half-input">
@@ -124,42 +120,99 @@
                 placeholder="Counts"
                 name="productLeftCount"
                 class="product-left-count"
+                min="0"
+                required
               />
             </div>
           </div>
+
           <div class="half-input-frame">
+            <!-- Changed name to furnitureCategory -->
             <div class="half-input">
               <label>Product Type</label>
-              <select class="product-collection" name="productCollection">
-                <option value="DISH" selected>Dish</option>
-                <option value="SALAD">Salad</option>
-                <option value="DESSERT">Dessert</option>
-                <option value="DRINK">Drink</option>
-                <option value="OTHER">Other</option>
+              <select class="product-collection" name="furnitureCategory" required>
+                <option value="Chair" selected>Chair</option>
+                <option value="Table">Table</option>
+                <option value="Sofa">Sofa</option>
+                <option value="Bed">Bed</option>
+                <option value="Dresser">Dresser</option>
+                <option value="Desk">Desk</option>
+                <option value="Cabinet">Cabinet</option>
+                <option value="Shelf">Shelf</option>
+                <option value="Wardrobe">Wardrobe</option>
+                <option value="Outdoor">Outdoor</option>
+                <option value="Other">Other</option>
               </select>
             </div>
 
+            <!-- Missing required fields added -->
+            <div class="half-input">
+              <label>Material</label>
+              <select name="furnitureMaterial" required>
+                <option value="">Select Material</option>
+                <option value="Wood">Wood</option>
+                <option value="Metal">Metal</option>
+                <option value="Glass">Glass</option>
+                <option value="Plastic">Plastic</option>
+                <option value="Fabric">Fabric</option>
+                <option value="Leather">Leather</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="half-input">
+              <label>Color</label>
+              <select name="furnitureColor" required>
+                <option value="">Select Color</option>
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+                <option value="Gray">Gray</option>
+                <option value="Brown">Brown</option>
+                <option value="Beige">Beige</option>
+                <option value="Blue">Blue</option>
+                <option value="Green">Green</option>
+                <option value="Red">Red</option>
+                <option value="Yellow">Yellow</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="half-input">
+              <label>Style</label>
+              <select name="furnitureStyle" required>
+                <option value="">Select Style</option>
+                <option value="Modern">Modern</option>
+                <option value="Contemporary">Contemporary</option>
+                <option value="Traditional">Traditional</option>
+                <option value="Industrial">Industrial</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="half-input-frame">
             <div class="half-input" id="product-collection">
-              <label>Dish Volume</label>
+              <label>Furniture </label>
               <select class="product-size" name="productSize">
-                <option value="SMALL">Small</option>
-                <option value="NORMAL" selected>Normal</option>
-                <option value="LARGE">Large</option>
+                <option value="Wood">Modern</option>
+                <option value="Metal" selected>Traditional</option>
+                <option value="Fabric">Espain</option>
                 <option value="SET">Set</option>
               </select>
             </div>
 
             <div class="half-input" id="product-volume" style="display: none">
               <label>Drink Volume</label>
-              <select class="product-volume" name="productVolume">
-                <option value="0.5">0,5 liters</option>
-                <option value="1" selected>1 liters</option>
-                <option value="1.2">1,2 liters</option>
-                <option value="1.5">1,5 liters</option>
-                <option value="2">2 liters</option>
+              <select class="product-Color" name="productColor">
+                <option value="default">Red</option>
+                <option value="default" selected>White</option>
+                <option value="default">Black</option>
+                <option value="default">Blue</option>
+                <option value="default">Green</option>
               </select>
             </div>
           </div>
+
           <div class="long-input">
             <label>Product Description</label>
             <textarea name="productDesc" class="product-desc"></textarea>
@@ -225,9 +278,7 @@
 
           <div class="operation-buttons">
             <button class="btn btn-danger" id="cancel-btn">Cancel</button>
-            <button type="submit" class="btn btn-primary" id="create-btn">
-              Create
-            </button>
+            <button type="submit" class="btn btn-primary" id="create-btn">Create</button>
           </div>
         </form>
       </div>

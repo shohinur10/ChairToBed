@@ -1,36 +1,38 @@
-import { ObjectId } from 'mongoose';
-import { OrderStatus } from '../enums/order.enum';
-import { FurnitureProduct } from './product'; // Assuming the furniture type is defined like this
 
-export interface OrderItem {
-  _id: ObjectId;
+import { OrderStatus } from '../enums/order.enum';
+import { Product } from './product';
+// Assuming the furniture type is defined like this
+
+
+
+export interface OrderItemInput {
   itemQuantity: number;
   itemPrice: number;
-  orderId: ObjectId;
-  productId: ObjectId;
+  productId: string;
+  orderId?: string;
+}
+export interface OrderItem {
+  _id: string;
+  itemQuantity: number;
+  itemPrice: number;
+  orderId: string;
+  productId: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export interface Order {
-  _id: ObjectId;
+  _id: string;
   orderTotal: number;
   orderDelivery: number;
   orderStatus: OrderStatus;
-  memberId: ObjectId;
+  memberId: string;
   createdAt: Date;
   updatedAt: Date;
 
   /** From aggregation */
   orderItems: OrderItem[];
-  productData: FurnitureProduct[]; // Aggregated product details
-}
-
-export interface OrderItemInput {
-  itemQuantity: number;
-  itemPrice: number;
-  productId: ObjectId;
-  orderId: ObjectId;
+  productData: Product[]; // Aggregated product details
 }
 
 export interface OrderInquiry {

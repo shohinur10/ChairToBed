@@ -7,6 +7,7 @@ export enum HttpCode {
     FORBIDDEN = 403,
     NOT_FOUND = 404,
     INTERNAL_SERVER_ERROR = 500,
+    CONFLICT,
 }
 
 export enum Message {
@@ -22,6 +23,7 @@ export enum Message {
     TOKEN_CREATION_FAILED ="Token creation errors!",
     NOT_FOUND = "NOT_FOUND",
     INVALID_POINT = "INVALID_POINT",
+    ALREADY_EXISTS = "ALREADY_EXISTS",
 }
 
 class Errors extends Error {

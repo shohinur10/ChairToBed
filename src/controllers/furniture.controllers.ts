@@ -53,7 +53,7 @@ furnitureController.processSignup = async (
 
     const newMember: MemberInput = req.body;
     newMember.memberImage = file?.path;
-    newMember.memberType = MemberType.ADMIN;
+    newMember.memberType = MemberType.FOUNDER;
     const result = await memberService.processSignup(newMember);
     //TODO: SESSIONS AUTHENTICATION
     req.session.member = result;
@@ -155,7 +155,7 @@ furnitureController.verifyRestaurant =(
    res: Response,
    next: NextFunction
 ) => {
-    if(req.session?.member?.memberType === MemberType.ADMIN) {
+    if(req.session?.member?.memberType === MemberType.FOUNDER) {
       req.member = req.session.member;
       next(); // let to move next step  
     }else {

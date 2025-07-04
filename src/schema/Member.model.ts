@@ -11,8 +11,6 @@ const memberSchema = new Schema({
         enum: MemberType,
         default:MemberType.USER
     },
-
-
     memberStatus: {
         type: String,
         enum:MemberStatus,
@@ -61,7 +59,6 @@ const memberSchema = new Schema({
 
 
 export default mongoose.model("Member", memberSchema);
-
 
 
 

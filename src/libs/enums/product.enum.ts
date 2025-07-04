@@ -8,9 +8,6 @@ export enum ProductCategory {
     DRESSER = 'Dresser',
     DESK = 'Desk',
     CABINET = 'Cabinet',
-    SHELF = 'Shelf',
-    WARDROBE = 'Wardrobe',
-    OUTDOOR = 'Outdoor',
     OTHER = 'Other',
   }
   
@@ -36,18 +33,10 @@ export enum ProductCategory {
     YELLOW = 'Yellow',
     OTHER = 'Other',
   }
-  
-  export enum ProductStyle {
-    MODERN = 'Modern',
-    CONTEMPORARY = 'Contemporary',
-    Traditional = "Traditional",
-    INDUSTRIAL = 'Industrial',
-    OTHER = 'Other',
-  }
-
   export  enum ProductStatus{
     PAUSE = "PAUSE",
     PROCESS = "PROCESS",
     DELETE = "DELETE",
   }
+  
   

@@ -1,9 +1,10 @@
-import MemberModel from "../schema/Member.model";
+
 import { LoginInput, Member, MemberInput, MemberUpdateInput } from '../libs/types/member';
 import Errors, { HttpCode, Message } from "../libs/utils/Errors";
 import { MemberStatus, MemberType } from "../libs/enums/member.enum";
 import * as bcrypt from "bcryptjs";
 import { shapeIntoMongooseObjectId } from "../libs/utils/config";
+import MemberModel from '../schema/Member.model';
 
 class MemberService {
   private readonly memberModel;
@@ -14,7 +15,7 @@ class MemberService {
 
   public async getRestaurant(): Promise<Member> {
     const result = await this.memberModel
-      .findOne({ memberType: MemberType.ADMIN})
+      .findOne({ memberType: MemberType.FOUNDER })
       .exec();
     if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
     return result.toObject() as Member;
@@ -102,7 +103,7 @@ public async getTopUsers(): Promise<Member[]> {
 
   if (!result || result.length === 0) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
-  return result.map(doc => doc.toObject() as Member);
+  return result.map((doc: { toObject: () => Member; }) => doc.toObject() as Member);
 }
 
 public async addUserPoint(member: Member): Promise <Member>{
@@ -122,26 +123,27 @@ public async addUserPoint(member: Member): Promise <Member>{
 }
 
   /** SSR Signup */
-  public async processSignup(input: MemberInput): Promise<Member> {
+  public async processSignup(input:MemberInput): Promise<Member>{
     const exist = await this.memberModel
-      .findOne({ memberType: MemberType.ADMIN})
-      .exec();
-    if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATION_FAILED);
+   .findOne({memberType: MemberType.FOUNDER}).exec();
+   console.log("→ [About to create member]:", input);
 
-    console.log("Data:", input);
 
-    const salt = await bcrypt.genSalt();
-    input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
+   if(exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATION_FAILED);
+   console.log("→ [About to create member]:", input);
 
-    try {
-      const result = await this.memberModel.create(input);
+   const salt = await bcrypt.genSalt();
+   input.memberPassword = await bcrypt.hash(input.memberPassword,salt)
 
-      result.memberPassword = "";
-      return result.toObject() as Member;
-    } catch (err) {
-      throw new Errors(HttpCode.BAD_REQUEST, Message.CREATION_FAILED);
-    }
-  }
+   try{
+       const result =  await this.memberModel.create(input);
+       result.memberPassword = "";
+       return result.toObject() as Member;
+   } catch(err){
+       throw new Errors(HttpCode.BAD_REQUEST, Message.CREATION_FAILED);   
+   }
+
+};
 
   /** SSR Login */
   public async processLogin(input:LoginInput): Promise<Member>{
@@ -169,7 +171,7 @@ public async addUserPoint(member: Member): Promise <Member>{
     .find({memberType: MemberType.USER})
     .exec();
     if (!result) throw new Errors(HttpCode.NOT_FOUND,Message.NO_DATA_FOUND);
-    return result.map(doc => doc.toObject() as Member);
+    return result.map((doc: { toObject: () => Member; }) => doc.toObject() as Member);
   }
 
   public async updatedChosenUser(input:MemberUpdateInput): Promise<Member>{

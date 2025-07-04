@@ -1,6 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
-import { ProductStyle, ProductColor, ProductCategory, ProductMaterial } from '../libs/enums/product.enum';
-
+import {
+  ProductColor,
+  ProductCategory,
+  ProductMaterial,
+  ProductStatus,
+} from '../libs/enums/product.enum'; // ✅ Ensure the path is correct
 
 const productSchema = new Schema(
   {
@@ -43,16 +47,18 @@ const productSchema = new Schema(
       enum: Object.values(ProductColor),
       required: true,
     },
-    furnitureStyle: {
+  
+    productStatus: {
       type: String,
-      enum: Object.values(ProductStyle),
+      enum: Object.values(ProductStatus),
+      default: ProductStatus.PAUSE,
       required: true,
     },
   },
   { timestamps: true }
 );
 
-// Optional index: Enforce uniqueness on name + category + material
+// Optional index: Enforce uniqueness on productName + category + material
 productSchema.index(
   { productName: 1, furnitureCategory: 1, furnitureMaterial: 1 },
   { unique: true }
