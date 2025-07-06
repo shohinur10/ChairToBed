@@ -7,10 +7,7 @@ export enum ProductCategory {
   OUTDOOR = 'OUTDOOR',
   OTHER = 'OTHER',
   KIDS= 'KIDS',
- 
-
 }
-
 export enum ProductMaterialType {
   WOOD = 'WOOD',
   METAL = 'METAL',

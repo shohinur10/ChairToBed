@@ -50,7 +50,7 @@
                   <td><%= key + 1 %></td>
                   <td><%= value.productName %></td>
                   <td><%= value.productCategory %></td>
-                  <td><%= value.productCategory === 'Chair' ? value.material : value.productColor %></td>
+                  <td><%= value.productCategory === 'Bedroom' ? value.productMAterialType: value.productStyleType %></td>
                   <td><%= value.productPrice %></td>
                   <td><%= value.productLeftCount %></td>
                   <td>
@@ -125,94 +125,57 @@
               />
             </div>
           </div>
-
           <div class="half-input-frame">
-            <!-- Changed name to furnitureCategory -->
+            <!-- Product Category -->
             <div class="half-input">
               <label>Product Type</label>
-              <select class="product-collection" name="furnitureCategory" required>
-                <option value="Chair" selected>Chair</option>
-                <option value="Table">Table</option>
-                <option value="Sofa">Sofa</option>
-                <option value="Bed">Bed</option>
-                <option value="Dresser">Dresser</option>
-                <option value="Desk">Desk</option>
-                <option value="Cabinet">Cabinet</option>
-                <option value="Shelf">Shelf</option>
-                <option value="Wardrobe">Wardrobe</option>
-                <option value="Outdoor">Outdoor</option>
-                <option value="Other">Other</option>
+              <select class="product-collection" name="productCategory" required>
+                <option value="">Select Category</option>
+                <option value="KIDS">Kids</option>
+                <option value="BEDROOM">Bedroom</option>
+                <option value="OUTDOOR">Outdoor</option>
+                <option value="OFFICE">Office</option>
+                <option value="STORAGE">Storage</option>
+                <option value="CUSTOM">Custom</option>
               </select>
             </div>
-
-            <!-- Missing required fields added -->
-            <div class="half-input">
-              <label>Material</label>
-              <select name="furnitureMaterial" required>
-                <option value="">Select Material</option>
-                <option value="Wood">Wood</option>
-                <option value="Metal">Metal</option>
-                <option value="Glass">Glass</option>
-                <option value="Plastic">Plastic</option>
-                <option value="Fabric">Fabric</option>
-                <option value="Leather">Leather</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-
-            <div class="half-input">
-              <label>Color</label>
-              <select name="furnitureColor" required>
-                <option value="">Select Color</option>
-                <option value="Black">Black</option>
-                <option value="White">White</option>
-                <option value="Gray">Gray</option>
-                <option value="Brown">Brown</option>
-                <option value="Beige">Beige</option>
-                <option value="Blue">Blue</option>
-                <option value="Green">Green</option>
-                <option value="Red">Red</option>
-                <option value="Yellow">Yellow</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-
+          
+            <!-- Product Style -->
             <div class="half-input">
               <label>Style</label>
-              <select name="furnitureStyle" required>
+              <select name="productStyleType" required>
                 <option value="">Select Style</option>
-                <option value="Modern">Modern</option>
-                <option value="Contemporary">Contemporary</option>
-                <option value="Traditional">Traditional</option>
-                <option value="Industrial">Industrial</option>
-                <option value="Other">Other</option>
+                <option value="MODERN">Modern</option>
+                <option value="CONTEMPORARY">Contemporary</option>
+                <option value="TRADITIONAL">Traditional</option>
+                <option value="RUSTIC">Rustic</option>
+                <option value="INDUSTRIAL">Industrial</option>
+                <option value="SCANDINAVIAN">Scandinavian</option>
+                <option value="BOHEMIAN">Bohemian</option>
+                <option value="VINTAGE">Vintage</option>
+                <option value="MINIMALIST">Minimalist</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+          
+            <!-- Product Material -->
+            <div class="half-input">
+              <label>Material</label>
+              <select name="productMaterialType" required>
+                <option value="">Select Material</option>
+                <option value="WOOD">Wood</option>
+                <option value="METAL">Metal</option>
+                <option value="GLASS">Glass</option>
+                <option value="PLASTIC">Plastic</option>
+                <option value="FABRIC">Fabric</option>
+                <option value="MARBLE">Marble</option>
+                <option value="BAMBOO">Bamboo</option>
+                <option value="LEATHER">Leather</option>
               </select>
             </div>
           </div>
-
-          <div class="half-input-frame">
-            <div class="half-input" id="product-collection">
-              <label>Furniture </label>
-              <select class="product-size" name="productSize">
-                <option value="Wood">Modern</option>
-                <option value="Metal" selected>Traditional</option>
-                <option value="Fabric">Espain</option>
-                <option value="SET">Set</option>
-              </select>
-            </div>
-
-            <div class="half-input" id="product-volume" style="display: none">
-              <label>Drink Volume</label>
-              <select class="product-Color" name="productColor">
-                <option value="default">Red</option>
-                <option value="default" selected>White</option>
-                <option value="default">Black</option>
-                <option value="default">Blue</option>
-                <option value="default">Green</option>
-              </select>
-            </div>
-          </div>
-
+        
+             
           <div class="long-input">
             <label>Product Description</label>
             <textarea name="productDesc" class="product-desc"></textarea>
@@ -272,7 +235,7 @@
                   onchange="previewFileHandler(this, 5)"
                 />
               </div>
-              <input name="restaurantIid" class="restaurant-id" hidden />
+              <input name="founderId" class="founder-id" hidden />
             </div>
           </div>
 

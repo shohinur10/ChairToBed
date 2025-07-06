@@ -4,9 +4,9 @@ $(function(){
         const selectedValue = $(".product-category ").val();
         if (selectedValue ==="Chair"){
             $("#product-category ").hide();
-            $("#product-volume").show();
+            $("#product-StyleType").show();
         }else{
-            $("#product-volume").hide();
+            $("#product-MaterialType").hide();
             $("#product-category").show();
         }
     });
