@@ -24,6 +24,7 @@ export enum Message {
     NOT_FOUND = "NOT_FOUND",
     INVALID_POINT = "INVALID_POINT",
     ALREADY_EXISTS = "ALREADY_EXISTS",
+    MEMBER_NOT_FOUND = "MEMBER_NOT_FOUND",
 }
 
 class Errors extends Error {

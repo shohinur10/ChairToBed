@@ -60,7 +60,7 @@ import { Product, ProductInput, ProductInquiry, ProductUpdateInput } from "../li
       
       let result  = await this.productModel.findOne({
           _id : productId,
-          productStatus: ProductStatus.PROCESS,
+    //      productStatus: ProductStatus.PROCESS,
       })
       .exec();
 
