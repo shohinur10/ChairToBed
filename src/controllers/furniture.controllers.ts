@@ -150,7 +150,7 @@ furnitureController.checkAuthSession = async (req: AdminRequest, res: Response) 
 };
 
 // Authorization  middleware
-furnitureController.verifyRestaurant =(
+furnitureController.verifyFounder =(
   req: AdminRequest,
    res: Response,
    next: NextFunction

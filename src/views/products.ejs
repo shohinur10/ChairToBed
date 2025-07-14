@@ -50,7 +50,7 @@
                   <td><%= key + 1 %></td>
                   <td><%= value.productName %></td>
                   <td><%= value.productCategory %></td>
-                  <td><%= value.productCategory === 'Bedroom' ? value.productMAterialType: value.productStyleType %></td>
+                  <td><%= value.productCategory === 'Bedroom' ? value.productMaterialType: value.productStyleType %></td>
                   <td><%= value.productPrice %></td>
                   <td><%= value.productLeftCount %></td>
                   <td>
@@ -129,14 +129,14 @@
             <!-- Product Category -->
             <div class="half-input">
               <label>Product Type</label>
-              <select class="product-collection" name="productCategory" required>
+              <select class="product-category" name="productCategory" required>
                 <option value="">Select Category</option>
                 <option value="KIDS">Kids</option>
                 <option value="BEDROOM">Bedroom</option>
                 <option value="OUTDOOR">Outdoor</option>
                 <option value="OFFICE">Office</option>
-                <option value="STORAGE">Storage</option>
-                <option value="CUSTOM">Custom</option>
+                <option value="KITCHEN">Kitchen </option>
+                <option value="OTHER">Other</option>
               </select>
             </div>
           
@@ -240,7 +240,7 @@
           </div>
 
           <div class="operation-buttons">
-            <button class="btn btn-danger" id="cancel-btn">Cancel</button>
+            <button type="button" class="btn btn-danger" id="cancel-btn">Cancel</button>
             <button type="submit" class="btn btn-primary" id="create-btn">Create</button>
           </div>
         </form>

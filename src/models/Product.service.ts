@@ -33,7 +33,7 @@ import { Product, ProductInput, ProductInquiry, ProductUpdateInput } from "../li
     public async getProducts(inquiry: ProductInquiry): Promise<Product[]>{
       const match: T ={};
       if (inquiry.productCategory)
-        match.ProductCategory= inquiry.productCategory;
+        match.productCategory= inquiry.productCategory;
       if (inquiry.search)
       match.productName ={
       $regex:new RegExp(inquiry.search, "i")}; // regular expression  case-intensive "I"

@@ -16,13 +16,13 @@ import { Message } from '../libs/utils/Errors';
 
 const memberController: T = {};
 
-memberController.getRestaurant = async (req: Request, res: Response) => {
+memberController.getFounder = async (req: Request, res: Response) => {
   try {
-    console.log("getRestaurant");
-    const result = await memberService.getRestaurant();
+    console.log("getFounder");
+    const result = await memberService.getFounder();
     res.status(HttpCode.OK).json(result);
   } catch (err) {
-    console.log("Error, getRestaurant:", err);
+    console.log("Error, getFounder:", err);
     if(err instanceof Errors) res.status(err.code).json(err);
     else res.status(Errors.standard.code).json(Errors.standard);
   }
@@ -112,8 +112,7 @@ try{
     else res.status(Errors.standard.code).json(Errors.standard);
 }
 };
-
-memberController.getTopUsers = async (req:Response, res:Response)=>{
+memberController.getTopUsers = async (req:Request, res:Response)=>{
   try{
     console.log("getTopUsers");
     const result = await memberService.getTopUsers();

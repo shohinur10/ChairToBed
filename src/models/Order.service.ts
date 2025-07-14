@@ -11,13 +11,13 @@ import MemberService from './Member.service';
 class OrderService {
   private readonly orderModel;
   private readonly orderItemModel;
-  private readonly MemberService;
+  private readonly memberService;
   memberModel: any;
 
   constructor() {
     this.orderModel = OrderModel;
     this.orderItemModel = OrderItemModel;
-    this.MemberService = new MemberService();
+    this.memberService = new MemberService();
   }
 
   public async createOrder(member: Member, input: OrderItemInput[]): Promise<Order> {
@@ -100,27 +100,55 @@ class OrderService {
     return result;
   }
 
-  public async updateOrder (member: Member, input: OrderUpdateInput): Promise<Order>{
+  public async updateOrder(
+    member: Member,
+    input: OrderUpdateInput
+  ): Promise<Order> {
     const memberId = shapeIntoMongooseObjectId(member._id),
-    orderId = shapeIntoMongooseObjectId(input.orderId),
-     orderStatus = input.orderStatus;
+      orderId = shapeIntoMongooseObjectId(input.orderId),
+      orderStatus = input.orderStatus;
 
+    const updatedOrder = await this.orderModel
+      .findOneAndUpdate(
+        {
+          memberId: memberId,
+          _id: orderId,
+        },
+        { orderStatus: orderStatus },
+        { new: true }
+      )
+      .exec();
 
-    const result = await  this.orderModel.findOneAndUpdate({
-        memberId: memberId,
-        _id: orderId,},
-        {orderStatus: orderStatus}, 
-    {new: true}
-).exec();
+    if (!updatedOrder) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
 
-if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.UPDATE_FAILED);
-// // ordersttaus pause => process  1 point berishim kerak 
-if (orderStatus === OrderStatus.PROCESS) {
-    await this.MemberService.addUserPoint(member);
+    const result = await this.orderModel
+      .aggregate([
+        { $match: { _id: updatedOrder._id } },
+        {
+          $lookup: {
+            from: "orderItems",
+            localField: "_id",
+            foreignField: "orderId",
+            as: "orderItems",
+          },
+        },
+        {
+          $lookup: {
+            from: "products",
+            localField: "orderItems.productId",
+            foreignField: "_id",
+            as: "productData",
+          },
+        },
+      ])
+      .exec();
+
+    if (!result || result.length === 0) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+    if (orderStatus === OrderStatus.PROCESS) {
+      await this.memberService.addUserPoint(member, 1);
     }
-
-
-return result.toObject() as Order;
- }
+    return result[0];
+  }
 }
 export default OrderService;

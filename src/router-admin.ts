@@ -26,13 +26,13 @@ routerAdmin.get("/logout", furnitureController.logout);
 /** ========== Product Routes ========== **/
 routerAdmin.get(
   "/product/all", //endpoint 
-  furnitureController.verifyRestaurant, //Middleware : Authorization
+  furnitureController.verifyFounder, //Middleware : Authorization
   productController.getAllProducts
 );
 
 routerAdmin.post(
   "/product/create", 
-  furnitureController.verifyRestaurant,//Authorization => req.member 
+  furnitureController.verifyFounder,//Authorization => req.member 
   makeUploader("products").array("productImages", 5), //Multer => req.files
   productController.createNewProduct//req.member req.files boyitildi 
 );
@@ -41,14 +41,14 @@ routerAdmin.post(
 
 routerAdmin.post(
   "/product/:id", //params
-  furnitureController.verifyRestaurant,
+  furnitureController.verifyFounder,
   productController.updateChosenProduct
 );
 /**  USER */
-routerAdmin.get("/user/all", furnitureController.verifyRestaurant,
+routerAdmin.get("/user/all", furnitureController.verifyFounder,
     furnitureController.getUsers
 );
-routerAdmin.post("/user/edit", furnitureController.verifyRestaurant,
+routerAdmin.post("/user/edit", furnitureController.verifyFounder,
     furnitureController.updatedChosenUser
 );
 /** ========== Export ========== **/

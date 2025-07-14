@@ -53,6 +53,11 @@ const productSchema = new Schema(
       default: ProductStatus.PAUSE,
       required: true,
     },
+    founderId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Founder',  // Use 'Member' or 'Founder' depending on your model name for founders
+      required: true,
+    },
   },
   { timestamps: true }
 );

@@ -8,7 +8,7 @@ const router = express.Router();
 
 
 /** Member  */
-router.get("/member/restaurant",memberController.getRestaurant);
+router.get("/member/founder",memberController.getFounder);
 router.post("/member/login", memberController.login);
 router.post("/member/signup", memberController.signup);
 router.post("/member/logout",  
@@ -25,7 +25,9 @@ router.post("/member/update",
         memberController.updateMember
     );
 
-router.get("/member/top-users", memberController.getTopUsers);
+router.get("/member/top-users",
+    memberController.getTopUsers
+)
 
 
 

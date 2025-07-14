@@ -4,7 +4,8 @@ import { T } from "../libs/types/common";
 import ProductService from "../models/Product.service";
 import { AdminRequest, ExtendedRequest } from "../libs/types/member";
 import { ProductInput, ProductInquiry } from "../libs/types/product";
-import { ProductCategory } from "../libs/enums/product.enum";
+import { ProductCategory } from '../libs/enums/product.enum';
+
 
 
 
@@ -12,19 +13,17 @@ const productService = new ProductService;
 const productController: T = {};
 
 /** SPA **/
-
- productController.getProducts = async (req: Request, res:Response) => {
+productController.getProducts = async (req: Request, res:Response) => {
     try{
         console.log("getProducts");       
-        const {page, limit, order, ProductCategory, search} = req.query;
+        const {page, limit, order, productCategory, search} = req.query;
         const inquiry: ProductInquiry = {
           order: String(order),
           page: Number(page),
           limit: Number(limit),
-          productCategory: ProductCategory ? ProductCategory as ProductCategory : undefined,
-          search: ""
+        
         };
-        if(ProductCategory) inquiry.productCategory = ProductCategory as ProductCategory;
+        if(productCategory) inquiry.productCategory = productCategory as ProductCategory;
 
         if(search) inquiry.search = String(search);
 
@@ -38,6 +37,7 @@ const productController: T = {};
         // res.json({})
     }
  }
+  
 
  productController.getProduct = async (req: ExtendedRequest, res:Response) => {
     try{

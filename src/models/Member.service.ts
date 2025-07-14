@@ -13,7 +13,7 @@ class MemberService {
     this.memberModel = MemberModel;
   }
 
-  public async getRestaurant(): Promise<Member> {
+  public async getFounder(): Promise<Member> {
     const result = await this.memberModel
       .findOne({ memberType: MemberType.FOUNDER })
       .exec();
@@ -91,11 +91,10 @@ public async updateMember (
   if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
   return result.toObject() as Member;
 }
-
 public async getTopUsers(): Promise<Member[]> {
   const result = await this.memberModel.find({
     memberStatus: MemberStatus.ACTIVE,
-    memberPoints: { $gte: 1 },
+    memberPoints: { $gte: 0},
   })
   .sort({ memberPoints: -1 }) // Corrected sorting field
   .limit(4)
@@ -103,24 +102,27 @@ public async getTopUsers(): Promise<Member[]> {
 
   if (!result || result.length === 0) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
-  return result.map((doc: { toObject: () => Member; }) => doc.toObject() as Member);
+  return result.map(doc => doc.toObject() as Member);
 }
-
-public async addUserPoint(member: Member): Promise <Member>{
+public async addUserPoint(member: Member, point: number): Promise<Member> {
   const memberId = shapeIntoMongooseObjectId(member._id);
 
-  const result = await this.memberModel.findOneAndUpdate(
-    {_id:memberId,
-      memberType: MemberType.USER, 
-      memberStatus: MemberStatus.ACTIVE
-    }, 
-    {$inc: { memberPoints: 1 }}, //$inc: MongoDB operator to increment memberPoints by the given amount.
-     {new: true },).exec();//{ new: true }: Returns the updated document instead of the old one.
+  const result = await this.memberModel
+    .findOneAndUpdate(
+      {
+        _id: memberId,
+        memberType: MemberType.USER,
+        memberStatus: MemberStatus.ACTIVE,
+      },
+      { $inc: { memberPoints: point } },
+      { new: true }
+    )
+    .exec();
 
   if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
   return result.toObject() as Member;
-
 }
+/** 
 
   /** SSR Signup */
   public async processSignup(input:MemberInput): Promise<Member>{

@@ -1,8 +1,8 @@
 console.log("Products frontend javascript file");
 $(function(){
     $(".product-category").on("change",()=>{
-        const selectedValue = $(".product-category ").val();
-        if (selectedValue ==="Chair"){
+        const selectedMaterialType = $(".product-category ").val();
+        if (selectedMaterialType ==="BEDROOM"){
             $("#product-category ").hide();
             $("#product-StyleType").show();
         }else{
