@@ -11,23 +11,14 @@ import { ViewGroup } from "../libs/enums/view.enum";
 import ViewService from "./View.service";
 import { Product, ProductInput, ProductInquiry, ProductUpdateInput } from "../libs/types/product";
 
-    class ProductService {
-      static updateChosenProduct(id: string, body: any) {
-        throw new Error("Method not implemented.");
-      }
-      static createNewProduct(data: ProductInput) {
-        throw new Error("Method not implemented.");
-      }
-      static getAllProducts() {
-        throw new Error("Method not implemented.");
-      }
-        private readonly productModel: any;
-       public viewService: ViewService; // Replace 'ViewService' with the actual type if different
-       
-       constructor() {
-           this.productModel = ProductModel ?? {};
-           this.viewService = new ViewService(); // Correctly initialize 'viewService'
-       }
+class ProductService {
+    private readonly productModel: any;
+    public viewService: ViewService;
+    
+    constructor() {
+        this.productModel = ProductModel ?? {};
+        this.viewService = new ViewService();
+    }
 
     /** SPA */
     public async getProducts(inquiry: ProductInquiry): Promise<Product[]>{
