@@ -90,13 +90,29 @@ class ProductService {
   }
 
     /** SSR */
-    public async getAllProducts(): Promise<Product[]>{
-      const result = await this.productModel.find().exec();
-      if(!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
+    public async getAllProducts(page: number = 1, limit: number = 10): Promise<{products: Product[], total: number, currentPage: number, totalPages: number}>{
+      const skip = (page - 1) * limit;
+      
+      // Get total count for pagination
+      const total = await this.productModel.countDocuments().exec();
+      
+      // Get paginated results
+      const products = await this.productModel
+        .find()
+        .sort({ createdAt: -1 }) // Show newest first
+        .skip(skip)
+        .limit(limit)
+        .exec();
+        
+      if(!products) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
 
-       return result;
-
-  }
+      return {
+        products,
+        total,
+        currentPage: page,
+        totalPages: Math.ceil(total / limit)
+      };
+    }
 
 public async createNewProduct(input: ProductInput): Promise<Product> {
     try {

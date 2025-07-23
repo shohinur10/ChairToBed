@@ -23,6 +23,30 @@ function validateForm() {
     return true;
 }
 
+// Search products function
+function searchProducts() {
+    const searchTerm = document.getElementById('product-search').value.toLowerCase();
+    const tableRows = document.querySelectorAll('.table-row');
+    
+    tableRows.forEach(row => {
+        const productName = row.querySelector('.product-title').textContent.toLowerCase();
+        const category = row.querySelector('.category-badge').textContent.toLowerCase();
+        const material = row.querySelector('.material-cell').textContent.toLowerCase();
+        
+        if (productName.includes(searchTerm) || 
+            category.includes(searchTerm) || 
+            material.includes(searchTerm)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+    
+    // Update visible count
+    const visibleRows = document.querySelectorAll('.table-row[style=""], .table-row:not([style])');
+    console.log(`Showing ${visibleRows.length} of ${tableRows.length} products`);
+}
+
 $(function(){
     // Set founderId from server-side member data when page loads
     if (window.memberData && window.memberData._id) {
@@ -44,7 +68,8 @@ $(function(){
     // Update product process codes 
     $(".new-product-status").on("change",async function(e) {
         const id = e.target.id;
-        const productStatus = $(`#${id}.new-product-status`).val();
+        const productStatus = e.target.value;
+
         console.log("id:", id);
         console.log("productStatus:", productStatus);
 

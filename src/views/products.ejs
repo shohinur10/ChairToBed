@@ -4,246 +4,369 @@
 
 <body>
   <div class="products-container">
-    <div class="navigation-menu">
-      <ul class="nav justify-content-center">
-        <li class="nav-item" style="cursor: pointer">
-          <a class="nav-link active" href="/admin/">Home</a>
-        </li>
-        <li class="nav-item" style="cursor: pointer">
-          <a class="nav-link" href="/admin/product/all">Menu</a>
-        </li>
-        <li class="nav-item" style="cursor: pointer">
-          <a class="nav-link" href="/admin/user/all">Users</a>
-        </li>
-        <li
-          class="nav-item"
-          style="cursor: pointer"
-          onclick="return confirm('Do you want to logout?')"
-        >
-          <a class="nav-link" href="/admin/logout">Logout</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="restaurant-menu-frame">
-      <div class="board">
-        <div class="dishes-table">
-          <span class="new-dish-txt" style="margin-bottom: 30px">
-            NEW ARRIVES
-          </span>
-          <table class="table table-bordered table-hover">
-            <thead class="thead-light">
-              <tr class="thead-light">
-                <th scope="col">T/r</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Product Type</th>
-                <th scope="col">Product Material</th>
-                <th scope="col">Product Price</th>
-                <th scope="col">Product Left Count</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-
-            <tbody style="background: white">
-              <% products.map(function(value, key) { %>
-                <tr>
-                  <td><%= key + 1 %></td>
-                  <td><%= value.productName %></td>
-                  <td><%= value.productCategory %></td>
-                  <td><%= value.productCategory === 'Bedroom' ? value.productMaterialType: value.productStyleType %></td>
-                  <td><%= value.productPrice %></td>
-                  <td><%= value.productLeftCount %></td>
-                  <td>
-                    <select class="spec-select new-product-status" id="<%= value._id %>">
-                      <option value="PAUSE" <%= value.productStatus === 'PAUSE' ? 'selected' : '' %>>PAUSE</option>
-                      <option value="PROCESS" <%= value.productStatus === 'PROCESS' ? 'selected' : '' %>>PROCESS</option>
-                      <option value="DELETE" <%= value.productStatus === 'DELETE' ? 'selected' : '' %>>DELETE</option>
-                    </select>    
-                  </td>
-                </tr>
-              <% }) %>
-            </tbody>
-          </table>
-
-          <div class="long-input" style="align-items: flex-end; margin-bottom: 25px">
-            <button class="btn btn-primary" id="process-btn">New Product</button>
-          </div>
+    <!-- Modern Header Navigation -->
+    <header class="modern-header">
+      <div class="header-content">
+        <div class="logo-section">
+          <h1 class="brand-title">ChairToBed</h1>
+          <span class="admin-badge">Admin Panel</span>
         </div>
-
-        <form
-          onsubmit="return validateForm()"
-          action="/admin/product/create"
-          method="POST"
-          class="dish-container"
-          enctype="multipart/form-data"
-        >
-          <div class="long-input" style="display: flex; align-items: center">
-            <span class="new-dish-txt">NEW PRODUCT DETAIL</span>
-          </div>
-
-          <div class="login-input-frame">
-            <div class="long-input">
-              <label>Product Name</label>
-              <input
-                type="text"
-                placeholder="Name"
-                name="productName"
-                class="product-name"
-                required
-              />
-            </div>
-            <input
-              name="productStatus"
-              value="PAUSE"
-              class="product-status"
-              hidden
-            />
-          </div>
-
-          <div class="half-input-frame">
-            <div class="half-input">
-              <label>Product Price</label>
-              <input
-                type="number"
-                placeholder="Price"
-                name="productPrice"
-                class="product-price"
-                min="0"
-                step="0.01"
-                required
-              />
-            </div>
-            <div class="half-input">
-              <label>Product Left Counts</label>
-              <input
-                type="number"
-                placeholder="Counts"
-                name="productLeftCount"
-                class="product-left-count"
-                min="0"
-                required
-              />
-            </div>
-          </div>
-          <div class="half-input-frame">
-            <!-- Product Category -->
-            <div class="half-input">
-              <label>Product Type</label>
-              <select class="product-category" name="productCategory" required>
-                <option value="">Select Category</option>
-                <option value="KIDS">Kids</option>
-                <option value="BEDROOM">Bedroom</option>
-                <option value="OUTDOOR">Outdoor</option>
-                <option value="OFFICE">Office</option>
-                <option value="KITCHEN">Kitchen </option>
-                <option value="OTHER">Other</option>
-              </select>
-            </div>
-          
-            <!-- Product Material -->
-            <div class="half-input">
-              <label>Material</label>
-              <select name="productMaterialType" required>
-                <option value="">Select Material</option>
-                <option value="WOOD">Wood</option>
-                <option value="METAL">Metal</option>
-                <option value="GLASS">Glass</option>
-                <option value="PLASTIC">Plastic</option>
-                <option value="FABRIC">Fabric</option>
-                <option value="LEATHER">Leather</option>
-                <option value="MARBLE">Marble</option>
-                <option value="BAMBOO">Bamboo</option>
-              </select>
-            </div>
-          </div>
-          
-          <div class="half-input-frame">
-            <!-- Product Style -->
-            <div class="half-input">
-              <label>Style</label>
-              <select name="productStyleType" required>
-                <option value="">Select Style</option>
-                <option value="MODERN">Modern</option>
-                <option value="CONTEMPORARY">Contemporary</option>
-                <option value="TRADITIONAL">Traditional</option>
-                <option value="RUSTIC">Rustic</option>
-                <option value="INDUSTRIAL">Industrial</option>
-                <option value="SCANDINAVIAN">Scandinavian</option>
-                <option value="BOHEMIAN">Bohemian</option>
-                <option value="VINTAGE">Vintage</option>
-                <option value="MINIMALIST">Minimalist</option>
-                <option value="OTHER">Other</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="img-frame">
-            <label>Product Images</label>
-            <div class="media-frame">
-              <div class="upload-img-box">
-                <img src="/img/upload.svg" class="1" id="image-section-1" />
-                <input
-                  type="file"
-                  id="file"
-                  name="productImages"
-                  class="image-one"
-                  required
-                  onchange="previewFileHandler(this, 1)"
-                />
-              </div>
-              <div class="upload-img-box">
-                <img src="/img/upload.svg" class="2" id="image-section-2" />
-                <input
-                  type="file"
-                  id="file"
-                  name="productImages"
-                  class="image-two"
-                  onchange="previewFileHandler(this, 2)"
-                />
-              </div>
-              <div class="upload-img-box">
-                <img src="/img/upload.svg" class="3" id="image-section-3" />
-                <input
-                  type="file"
-                  id="file"
-                  name="productImages"
-                  class="image-three"
-                  onchange="previewFileHandler(this, 3)"
-                />
-              </div>
-              <div class="upload-img-box">
-                <img src="/img/upload.svg" class="4" id="image-section-4" />
-                <input
-                  type="file"
-                  id="file"
-                  name="productImages"
-                  class="image-four"
-                  onchange="previewFileHandler(this, 4)"
-                />
-              </div>
-              <div class="upload-img-box">
-                <img src="/img/upload.svg" class="5" id="image-section-5" />
-                <input
-                  type="file"
-                  id="file"
-                  name="productImages"
-                  class="image-five"
-                  onchange="previewFileHandler(this, 5)"
-                />
-              </div>
-            </div>
-          </div>
-
-          <!-- Hidden field for founderId -->
-          <input name="founderId" class="founder-id" hidden />
-
-          <div class="operation-buttons">
-            <button type="button" class="btn btn-danger" id="cancel-btn">Cancel</button>
-            <button type="submit" class="btn btn-primary" id="create-btn">Create</button>
-          </div>
-        </form>
+        <nav class="modern-nav">
+          <a href="/admin/" class="nav-item active">
+            <i class="nav-icon">🏠</i>
+            <span>Dashboard</span>
+          </a>
+          <a href="/admin/product/all" class="nav-item">
+            <i class="nav-icon">📦</i>
+            <span>Products</span>
+          </a>
+          <a href="/admin/user/all" class="nav-item">
+            <i class="nav-icon">👥</i>
+            <span>Users</span>
+          </a>
+          <a href="/admin/profile" class="nav-item">
+            <i class="nav-icon">👤</i>
+            <span>Profile</span>
+          </a>
+          <a href="/admin/logout" class="nav-item logout" onclick="return confirm('Do you want to logout?')">
+            <i class="nav-icon">🚪</i>
+            <span>Logout</span>
+          </a>
+        </nav>
       </div>
-    </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <!-- Products Section -->
+        <section class="products-section">
+          <div class="section-header">
+            <div class="header-left">
+              <h2 class="section-title">Product Management</h2>
+              <p class="section-subtitle">Manage your furniture inventory</p>
+            </div>
+            <div class="header-actions">
+              <div class="search-container">
+                <input 
+                  type="text" 
+                  placeholder="Search products..." 
+                  class="search-input"
+                  id="product-search"
+                  onkeyup="searchProducts()"
+                />
+                <i class="search-icon">🔍</i>
+              </div>
+              <button class="btn-modern btn-primary" id="process-btn">
+                <i class="btn-icon">➕</i>
+                Add New Product
+              </button>
+            </div>
+          </div>
+
+          <!-- Modern Table Card -->
+          <div class="table-card">
+            <div class="table-header">
+              <h3>Current Products</h3>
+              <div class="table-stats">
+                <span class="stat-item">Total: <%= pagination.total %></span>
+                <span class="stat-item">Page <%= pagination.currentPage %> of <%= pagination.totalPages %></span>
+              </div>
+            </div>
+            
+            <div class="table-container">
+              <table class="modern-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Material/Style</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% products.map(function(value, key) { %>
+                    <tr class="table-row">
+                      <td class="row-number"><%= key + 1 %></td>
+                      <td class="product-name-cell">
+                        <div class="product-info">
+                          <span class="product-title"><%= value.productName %></span>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="category-badge category-<%= value.productCategory.toLowerCase() %>">
+                          <%= value.productCategory %>
+                        </span>
+                      </td>
+                      <td class="material-cell">
+                        <%= value.productCategory === 'Bedroom' ? value.productMaterialType: value.productStyleType %>
+                      </td>
+                      <td class="price-cell">
+                        <span class="price">$<%= value.productPrice %></span>
+                      </td>
+                      <td class="stock-cell">
+                        <span class="stock-count <%= value.productLeftCount < 5 ? 'low-stock' : '' %>">
+                          <%= value.productLeftCount %>
+                        </span>
+                      </td>
+                      <td class="status-cell">
+                        <select class="modern-select new-product-status" id="<%= value._id %>">
+                          <option value="PAUSE" <%= value.productStatus === 'PAUSE' ? 'selected' : '' %>>Paused</option>
+                          <option value="PROCESS" <%= value.productStatus === 'PROCESS' ? 'selected' : '' %>>Active</option>
+                          <option value="DELETE" <%= value.productStatus === 'DELETE' ? 'selected' : '' %>>Deleted</option>
+                        </select>    
+                      </td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- Pagination Controls -->
+            <div class="pagination-container">
+              <div class="pagination-info">
+                Showing <%= (pagination.currentPage - 1) * 10 + 1 %>-<%= Math.min(pagination.currentPage * 10, pagination.total) %> of <%= pagination.total %> products
+              </div>
+              <div class="pagination-controls">
+                <% if (pagination.hasPrev) { %>
+                  <a href="?page=1" class="pagination-btn first">First</a>
+                  <a href="?page=<%= pagination.currentPage - 1 %>" class="pagination-btn prev">Previous</a>
+                <% } %>
+                
+                <% for (let i = Math.max(1, pagination.currentPage - 2); i <= Math.min(pagination.totalPages, pagination.currentPage + 2); i++) { %>
+                  <a href="?page=<%= i %>" class="pagination-btn <%= i === pagination.currentPage ? 'active' : '' %>">
+                    <%= i %>
+                  </a>
+                <% } %>
+                
+                <% if (pagination.hasNext) { %>
+                  <a href="?page=<%= pagination.currentPage + 1 %>" class="pagination-btn next">Next</a>
+                  <a href="?page=<%= pagination.totalPages %>" class="pagination-btn last">Last</a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Modern Product Form -->
+        <section class="product-form-section dish-container">
+          <form
+            onsubmit="return validateForm()"
+            action="/admin/product/create"
+            method="POST"
+            class="modern-form"
+            enctype="multipart/form-data"
+          >
+            <div class="form-header">
+              <h3 class="form-title">Add New Product</h3>
+              <p class="form-subtitle">Fill in the details for your new furniture piece</p>
+            </div>
+
+            <div class="form-content">
+              <!-- Product Name -->
+              <div class="form-group full-width">
+                <label class="form-label">Product Name</label>
+                <input
+                  type="text"
+                  placeholder="Enter product name"
+                  name="productName"
+                  class="form-input product-name"
+                  required
+                />
+              </div>
+
+              <input name="productStatus" value="PAUSE" class="product-status" hidden />
+
+              <!-- Price and Stock Row -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Price</label>
+                  <div class="input-with-icon">
+                    <span class="input-icon">$</span>
+                    <input
+                      type="number"
+                      placeholder="0.00"
+                      name="productPrice"
+                      class="form-input product-price"
+                      min="0"
+                      step="0.01"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Stock Quantity</label>
+                  <input
+                    type="number"
+                    placeholder="Available quantity"
+                    name="productLeftCount"
+                    class="form-input product-left-count"
+                    min="0"
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- Category and Material Row -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Category</label>
+                  <select class="form-select product-category" name="productCategory" required>
+                    <option value="">Choose category</option>
+                    <option value="KIDS">Kids</option>
+                    <option value="BEDROOM">Bedroom</option>
+                    <option value="OUTDOOR">Outdoor</option>
+                    <option value="OFFICE">Office</option>
+                    <option value="KITCHEN">Kitchen</option>
+                    <option value="OTHER">Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Material</label>
+                  <select class="form-select" name="productMaterialType" required>
+                    <option value="">Select material</option>
+                    <option value="WOOD">Wood</option>
+                    <option value="METAL">Metal</option>
+                    <option value="GLASS">Glass</option>
+                    <option value="PLASTIC">Plastic</option>
+                    <option value="FABRIC">Fabric</option>
+                    <option value="LEATHER">Leather</option>
+                    <option value="MARBLE">Marble</option>
+                    <option value="BAMBOO">Bamboo</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Style -->
+              <div class="form-group">
+                <label class="form-label">Style</label>
+                <select class="form-select" name="productStyleType" required>
+                  <option value="">Choose style</option>
+                  <option value="MODERN">Modern</option>
+                  <option value="CONTEMPORARY">Contemporary</option>
+                  <option value="TRADITIONAL">Traditional</option>
+                  <option value="RUSTIC">Rustic</option>
+                  <option value="INDUSTRIAL">Industrial</option>
+                  <option value="SCANDINAVIAN">Scandinavian</option>
+                  <option value="BOHEMIAN">Bohemian</option>
+                  <option value="VINTAGE">Vintage</option>
+                  <option value="MINIMALIST">Minimalist</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
+
+              <!-- Image Upload Section -->
+              <div class="form-group full-width">
+                <label class="form-label">Product Images</label>
+                <div class="upload-grid">
+                  <div class="upload-card">
+                    <div class="upload-area" onclick="document.querySelector('.image-one').click()">
+                      <img src="/img/upload.svg" class="upload-preview" id="image-section-1" />
+                      <div class="upload-overlay">
+                        <span class="upload-text">Click to upload</span>
+                        <small>Image 1 (Required)</small>
+                      </div>
+                    </div>
+                    <input
+                      type="file"
+                      name="productImages"
+                      class="image-one upload-input"
+                      required
+                      accept="image/*"
+                      onchange="previewFileHandler(this, 1)"
+                    />
+                  </div>
+
+                  <div class="upload-card">
+                    <div class="upload-area" onclick="document.querySelector('.image-two').click()">
+                      <img src="/img/upload.svg" class="upload-preview" id="image-section-2" />
+                      <div class="upload-overlay">
+                        <span class="upload-text">Click to upload</span>
+                        <small>Image 2 (Optional)</small>
+                      </div>
+                    </div>
+                    <input
+                      type="file"
+                      name="productImages"
+                      class="image-two upload-input"
+                      accept="image/*"
+                      onchange="previewFileHandler(this, 2)"
+                    />
+                  </div>
+
+                  <div class="upload-card">
+                    <div class="upload-area" onclick="document.querySelector('.image-three').click()">
+                      <img src="/img/upload.svg" class="upload-preview" id="image-section-3" />
+                      <div class="upload-overlay">
+                        <span class="upload-text">Click to upload</span>
+                        <small>Image 3 (Optional)</small>
+                      </div>
+                    </div>
+                    <input
+                      type="file"
+                      name="productImages"
+                      class="image-three upload-input"
+                      accept="image/*"
+                      onchange="previewFileHandler(this, 3)"
+                    />
+                  </div>
+
+                  <div class="upload-card">
+                    <div class="upload-area" onclick="document.querySelector('.image-four').click()">
+                      <img src="/img/upload.svg" class="upload-preview" id="image-section-4" />
+                      <div class="upload-overlay">
+                        <span class="upload-text">Click to upload</span>
+                        <small>Image 4 (Optional)</small>
+                      </div>
+                    </div>
+                    <input
+                      type="file"
+                      name="productImages"
+                      class="image-four upload-input"
+                      accept="image/*"
+                      onchange="previewFileHandler(this, 4)"
+                    />
+                  </div>
+
+                  <div class="upload-card">
+                    <div class="upload-area" onclick="document.querySelector('.image-five').click()">
+                      <img src="/img/upload.svg" class="upload-preview" id="image-section-5" />
+                      <div class="upload-overlay">
+                        <span class="upload-text">Click to upload</span>
+                        <small>Image 5 (Optional)</small>
+                      </div>
+                    </div>
+                    <input
+                      type="file"
+                      name="productImages"
+                      class="image-five upload-input"
+                      accept="image/*"
+                      onchange="previewFileHandler(this, 5)"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hidden field for founderId -->
+              <input name="founderId" class="founder-id" hidden />
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-modern btn-secondary" id="cancel-btn">
+                Cancel
+              </button>
+              <button type="submit" class="btn-modern btn-primary" id="create-btn">
+                <i class="btn-icon">✨</i>
+                Create Product
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
   </div>
 
   <script type="text/javascript">

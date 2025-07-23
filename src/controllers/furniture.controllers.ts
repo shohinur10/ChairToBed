@@ -94,6 +94,15 @@ furnitureController.processLogin = async (
   }
 };
 
+furnitureController.getLogout = (req: AdminRequest, res: Response) => {
+  try {
+    console.log("getLogout - showing confirmation page");
+    res.render("logout", { member: req.session.member });
+  } catch (err) {
+    console.log("Error, getLogout:", err);
+    res.redirect("/admin/login");
+  }
+};
 
 furnitureController.logout = async (req: AdminRequest, res: Response) => {
   try {
@@ -105,15 +114,27 @@ furnitureController.logout = async (req: AdminRequest, res: Response) => {
     // Destroy session
     req.session.destroy((err) => {
       if (err) {
-        console.log("Session destruction error:", err);
-        res.redirect("/admin/login");
-      } else {
-        res.redirect("/admin"); 
+        console.log("Session destroy error:", err);
+        return res.redirect("/admin/login");
       }
+      
+      res.clearCookie("connect.sid"); // Clear the session cookie
+      res.redirect("/admin/login");
     });
-  } catch (err: any) {
-    console.log("Error,logout:", err);
-    res.redirect("/admin");
+  } catch (err) {
+    console.log("Error, logout:", err);
+    res.redirect("/admin/login");
+  }
+};
+
+// Add profile page method
+furnitureController.getProfile = async (req: AdminRequest, res: Response) => {
+  try {
+    console.log("getProfile");
+    res.render("profile", { member: req.member });
+  } catch (err) {
+    console.log("Error, getProfile:", err);
+    res.redirect("/admin/login");
   }
 };
 
@@ -172,11 +193,11 @@ furnitureController.verifyFounder =(
       next(); // let to move next step  
     }else {
       console.log("verifyFounder - authentication failed, redirecting to login");
-      const message = Message.NOT_AUTHENTICATED;
-      res.send(`
-        <script> alert("${message}"); window.location.replace('/admin/login'); </script>`
-      );
-    }
+    const message = Message.NOT_AUTHENTICATED;
+    res.send(`
+      <script> alert("${message}"); window.location.replace('/admin/login'); </script>`
+    );
+  }
 };
 
 export default furnitureController;

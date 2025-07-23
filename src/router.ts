@@ -23,6 +23,25 @@ router.post("/member/update",
         memberController.updateMember
     );
 
+// Add specific route for member image updates with error handling
+router.post("/member/update-image", 
+    memberController.verifyAuth, 
+    (req, res, next) => {
+        const upload = uploader("members").single("memberImage");
+        upload(req, res, (err) => {
+            if (err) {
+                console.log("Multer error:", err);
+                return res.status(400).json({
+                    error: true,
+                    message: "File upload error: " + err.message
+                });
+            }
+            next();
+        });
+    },
+    memberController.updateMemberImage
+);
+
 router.get("/member/top-users",
     memberController.getTopUsers
 )

@@ -116,6 +116,42 @@ try{
     else res.status(Errors.standard.code).json(Errors.standard);
 }
 };
+
+// Dedicated method for member image updates
+memberController.updateMemberImage = async (req: ExtendedRequest, res:Response) =>{
+try{
+  console.log("updateMemberImage called");
+  console.log("req.file:", req.file);
+  console.log("req.body:", req.body);
+  
+  if (!req.file) {
+    console.log("No file received in request");
+    return res.status(HttpCode.BAD_REQUEST).json({
+      error: true,
+      message: "No image file provided"
+    });
+  }
+  
+  // Create input with only the image field (no _id needed for update)
+  const input : Partial<MemberUpdateInput> = {};
+  
+  // Format the image path properly
+  input.memberImage = req.file.path.replace(/\\/g, "/").replace(/^\.\//, "");
+  
+  console.log("Updating member image:", input.memberImage);
+  const result = await memberService.updateMember(req.member, input as MemberUpdateInput);
+  
+  res.status(HttpCode.OK).json({
+    success: true,
+    message: "Member image updated successfully",
+    member: result
+  });
+}catch (err) {
+    console.log("Error, updateMemberImage:", err);
+    if(err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
+}
+};
 memberController.getTopUsers = async (req:Request, res:Response)=>{
   try{
     console.log("getTopUsers");

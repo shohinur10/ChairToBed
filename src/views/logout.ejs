@@ -1,0 +1,145 @@
+<%- include('includes/header') %>
+
+<link rel="stylesheet" type="text/css" href="/css/logout.css" />
+
+<body>
+  <div class="logout-container">
+    <!-- Modern Header Navigation -->
+    <header class="modern-header">
+      <div class="header-content">
+        <div class="logo-section">
+          <h1 class="brand-title">ChairToBed</h1>
+          <span class="admin-badge">Admin Panel</span>
+        </div>
+        <nav class="modern-nav">
+          <a href="/admin/" class="nav-item">
+            <i class="nav-icon">🏠</i>
+            <span>Dashboard</span>
+          </a>
+          <a href="/admin/product/all" class="nav-item">
+            <i class="nav-icon">📦</i>
+            <span>Products</span>
+          </a>
+          <a href="/admin/user/all" class="nav-item">
+            <i class="nav-icon">👥</i>
+            <span>Users</span>
+          </a>
+          <a href="/admin/profile" class="nav-item">
+            <i class="nav-icon">👤</i>
+            <span>Profile</span>
+          </a>
+          <span class="nav-item logout active">
+            <i class="nav-icon">🚪</i>
+            <span>Logout</span>
+          </span>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <!-- Logout Confirmation Section -->
+        <section class="logout-section">
+          <div class="logout-card">
+            <div class="logout-icon-wrapper">
+              <div class="logout-icon">🚪</div>
+            </div>
+            
+            <div class="logout-content">
+              <h2 class="logout-title">Confirm Logout</h2>
+              <p class="logout-message">
+                Are you sure you want to logout from your admin account? 
+                You'll need to sign in again to access the admin panel.
+              </p>
+              
+              <div class="user-info">
+                <div class="user-avatar">
+                  <% if (typeof member !== 'undefined' && member.memberImage) { %>
+                    <img src="/<%= member.memberImage %>" alt="Profile" class="avatar-img">
+                  <% } else { %>
+                    <div class="avatar-placeholder">
+                      <%= typeof member !== 'undefined' ? member.memberNick.charAt(0).toUpperCase() : 'A' %>
+                    </div>
+                  <% } %>
+                </div>
+                <div class="user-details">
+                  <div class="user-name">
+                    <%= typeof member !== 'undefined' ? member.memberNick : 'Admin User' %>
+                  </div>
+                  <div class="user-role">
+                    <%= typeof member !== 'undefined' ? member.memberType : 'ADMIN' %> Account
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="logout-actions">
+              <button onclick="history.back()" class="btn-modern btn-secondary">
+                <i class="btn-icon">↩️</i>
+                Cancel
+              </button>
+              <a href="/admin/logout-confirm" class="btn-modern btn-danger">
+                <i class="btn-icon">🚪</i>
+                Yes, Logout
+              </a>
+            </div>
+          </div>
+
+          <!-- Additional Information -->
+          <div class="logout-info">
+            <div class="info-item">
+              <i class="info-icon">🔒</i>
+              <span>Your session will be securely terminated</span>
+            </div>
+            <div class="info-item">
+              <i class="info-icon">💰</i>
+              <span>All unsaved changes will be lost</span>
+            </div>
+            <div class="info-item">
+              <i class="info-icon">🔑</i>
+              <span>You can login again anytime</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    console.log("🚪 MODERN LOGOUT PAGE");
+    
+    // Auto-logout after inactivity (optional)
+    let logoutTimer;
+    const LOGOUT_DELAY = 300000; // 5 minutes
+    
+    function resetLogoutTimer() {
+      clearTimeout(logoutTimer);
+      logoutTimer = setTimeout(() => {
+        window.location.href = '/admin/logout-confirm';
+      }, LOGOUT_DELAY);
+    }
+    
+    // Reset timer on user activity
+    document.addEventListener('mousemove', resetLogoutTimer);
+    document.addEventListener('keypress', resetLogoutTimer);
+    document.addEventListener('click', resetLogoutTimer);
+    
+    // Initialize timer
+    resetLogoutTimer();
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // ESC to cancel
+      if (e.key === 'Escape') {
+        history.back();
+      }
+      // Enter to confirm logout
+      if (e.key === 'Enter') {
+        window.location.href = '/admin/logout-confirm';
+      }
+    });
+  </script>
+</body>
+
+<%- include('includes/footer') %> 

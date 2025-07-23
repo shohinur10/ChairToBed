@@ -82,11 +82,16 @@ class MemberService {
   
 public async updateMember (
   member: Member, 
-  input:MemberUpdateInput
+  input: Partial<MemberUpdateInput>
 ):Promise<Member> {
   const memberId = shapeIntoMongooseObjectId(member._id);
+  
+  // Remove _id from input to avoid conflicts
+  const updateData = { ...input };
+  delete updateData._id;
+  
   const result = await this.memberModel
-  .findByIdAndUpdate({_id: memberId}, input, { new: true}) // new true - bu obshion 
+  .findByIdAndUpdate(memberId, updateData, { new: true}) // new true - bu obshion 
   .exec();
   if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
   return result.toObject() as Member;

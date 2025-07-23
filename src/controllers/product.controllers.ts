@@ -66,8 +66,20 @@ productController.getProducts = async (req: Request, res:Response) => {
 productController.getAllProducts = async (req:Request, res:Response)=>{
     try{
         console.log("getAllProducts");
-        const data = await productService.getAllProducts();
-        res.render("products", {products: data})
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 10;
+        
+        const result = await productService.getAllProducts(page, limit);
+        res.render("products", {
+            products: result.products,
+            pagination: {
+                currentPage: result.currentPage,
+                totalPages: result.totalPages,
+                total: result.total,
+                hasNext: result.currentPage < result.totalPages,
+                hasPrev: result.currentPage > 1
+            }
+        });
     } catch(err){
         console.log("ERROR, getAllProducts", err);
         if( err instanceof Errors) res.status(err.code).json(err);

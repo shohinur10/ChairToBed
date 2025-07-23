@@ -3,6 +3,8 @@ const routerAdmin = express.Router();
 import productController from "./controllers/product.controllers";
 import makeUploader from './libs/utils/uploader';
 import furnitureController from "./controllers/furniture.controllers";
+import { AdminRequest } from "./libs/types/member";
+import { Response } from "express";
 
 /** ========== Restaurant Routes ========== **/
 routerAdmin.get("/", furnitureController.goHome);
@@ -19,8 +21,12 @@ routerAdmin
   .get("/login", furnitureController.getLogin)
   .post("/login", furnitureController.processLogin);
 
-// Add logout route
-routerAdmin.get("/logout", furnitureController.logout);
+// Modern Logout Routes
+routerAdmin.get("/logout", furnitureController.verifyFounder, furnitureController.getLogout);
+routerAdmin.get("/logout-confirm", furnitureController.logout);
+
+// Add profile route - using controller method instead of inline function
+routerAdmin.get("/profile", furnitureController.verifyFounder, furnitureController.getProfile);
 
 /** ========== Product Routes ========== **/
 routerAdmin.get(
@@ -48,13 +54,13 @@ routerAdmin.post(
 routerAdmin.get(
   "/user/all", 
   furnitureController.verifyFounder,
-  furnitureController.getUsers
+    furnitureController.getUsers
 );
 
 routerAdmin.post(
   "/user/edit", 
   furnitureController.verifyFounder,
-  furnitureController.updatedChosenUser
+    furnitureController.updatedChosenUser
 );
 
 export default routerAdmin;
