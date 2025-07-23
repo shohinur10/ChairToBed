@@ -1,17 +1,36 @@
 console.log("Products frontend javascript file");
-$(function(){
-    $(".product-category").on("change",()=>{
-        const selectedMaterialType = $(".product-category ").val();
-        if (selectedMaterialType ==="BEDROOM"){
-            $("#product-category ").hide();
-            $("#product-StyleType").show();
-        }else{
-            $("#product-MaterialType").hide();
-            $("#product-category").show();
-        }
-    });
-    // jquery orqali button larni bosish orqali
 
+// Add missing validateForm function  
+function validateForm() {
+    const productName = $(".product-name").val();
+    const productPrice = $(".product-price").val();
+    const productLeftCount = $(".product-left-count").val();
+    const productCategory = $("select[name='productCategory']").val();
+    const productStyleType = $("select[name='productStyleType']").val();
+    const productMaterialType = $("select[name='productMaterialType']").val();
+    
+    if (!productName || !productPrice || !productLeftCount || !productCategory || !productStyleType || !productMaterialType) {
+        alert("Please fill in all required fields");
+        return false;
+    }
+    
+    // Check if member is logged in
+    if (!window.memberData || !window.memberData._id) {
+        alert("User session expired. Please login again.");
+        return false;
+    }
+    
+    return true;
+}
+
+$(function(){
+    // Set founderId from server-side member data when page loads
+    if (window.memberData && window.memberData._id) {
+        $(".founder-id").val(window.memberData._id);
+        console.log("FounderId set to:", window.memberData._id);
+    }
+    
+    // jquery orqali button larni bosish orqali
     $("#process-btn").on("click", () =>{
         $(".dish-container").slideToggle(500);
         $("#process-btn").css("display","none");
@@ -22,7 +41,7 @@ $(function(){
         $("#process-btn").css("display","flex");
     });
 
-// Update product process codes 
+    // Update product process codes 
     $(".new-product-status").on("change",async function(e) {
         const id = e.target.id;
         const productStatus = $(`#${id}.new-product-status`).val();
@@ -45,28 +64,6 @@ $(function(){
         }
     })
 });
-
- // Validation codes 
-function validateForm() {
-    const productName = $(".product-name").val();
-    const productPrice = $(".product-price").val();
-    const productLeftCount = $(".product-left-count").val();
-    const productCategory  = $(".product-category").val();
-    const productStatus = $(".product-status").val();
-    const productDesc = $(".product-desc").val();
-    
-    if (
-        productName === "" ||
-        productPrice === "" ||
-        productLeftCount === "" ||
-        productCategory === "" ||
-        productStatus === "" ||
-        productDesc === "" 
-    ) {
-        alert("Please insert all required inputs!");
-        return false;
-    } else return true;
-}
 
 // Image codes for add for button 
 function previewFileHandler(input, order) {

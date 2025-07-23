@@ -98,9 +98,19 @@ furnitureController.processLogin = async (
 furnitureController.logout = async (req: AdminRequest, res: Response) => {
   try {
     console.log("logout");
-     req.session.destroy(function(){
-      res.redirect("/admin"); 
-     });
+    
+    // Clear any JWT cookies as well (for cleanup)
+    res.clearCookie("accessToken");
+    
+    // Destroy session
+    req.session.destroy((err) => {
+      if (err) {
+        console.log("Session destruction error:", err);
+        res.redirect("/admin/login");
+      } else {
+        res.redirect("/admin"); 
+      }
+    });
   } catch (err: any) {
     console.log("Error,logout:", err);
     res.redirect("/admin");
@@ -155,15 +165,18 @@ furnitureController.verifyFounder =(
    res: Response,
    next: NextFunction
 ) => {
+    console.log("verifyFounder - checking session:", !!req.session?.member);
+    
     if(req.session?.member?.memberType === MemberType.FOUNDER) {
       req.member = req.session.member;
       next(); // let to move next step  
     }else {
-    const message = Message.NOT_AUTHENTICATED;
-    res.send(`
-      <script> alert("${message}"); window.location.replace('/admin/login'); </script>`
-    );
-  }
+      console.log("verifyFounder - authentication failed, redirecting to login");
+      const message = Message.NOT_AUTHENTICATED;
+      res.send(`
+        <script> alert("${message}"); window.location.replace('/admin/login'); </script>`
+      );
+    }
 };
 
 export default furnitureController;

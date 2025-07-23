@@ -107,11 +107,19 @@ public async getTopUsers(): Promise<Member[]> {
 public async addUserPoint(member: Member, point: number): Promise<Member> {
   const memberId = shapeIntoMongooseObjectId(member._id);
 
+  console.log("addUserPoint - member info:", {
+    id: memberId,
+    nick: member.memberNick,
+    type: member.memberType,
+    status: member.memberStatus
+  });
+
   const result = await this.memberModel
     .findOneAndUpdate(
       {
         _id: memberId,
-        memberType: MemberType.USER,
+        // Remove the strict memberType filter - allow both USER and FOUNDER to receive points
+        memberType: { $in: [MemberType.USER, MemberType.FOUNDER] },
         memberStatus: MemberStatus.ACTIVE,
       },
       { $inc: { memberPoints: point } },
@@ -119,7 +127,16 @@ public async addUserPoint(member: Member, point: number): Promise<Member> {
     )
     .exec();
 
-  if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+  if (!result) {
+    console.log("addUserPoint - No member found with criteria:", {
+      _id: memberId,
+      memberType: member.memberType,
+      memberStatus: member.memberStatus
+    });
+    throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+  }
+  
+  console.log("addUserPoint - Successfully added points. New total:", result.memberPoints);
   return result.toObject() as Member;
 }
 /** 

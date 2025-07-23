@@ -16,14 +16,16 @@ const productController: T = {};
 productController.getProducts = async (req: Request, res:Response) => {
     try{
         console.log("getProducts");       
-        const {page, limit, order, productCategory, search} = req.query;
+        const {page, limit, order, productCategory, productCollection, search} = req.query;
         const inquiry: ProductInquiry = {
           order: String(order),
           page: Number(page),
           limit: Number(limit),
         
         };
+        // Support both productCategory and productCollection for backward compatibility
         if(productCategory) inquiry.productCategory = productCategory as ProductCategory;
+        if(productCollection) inquiry.productCategory = productCollection as ProductCategory;
 
         if(search) inquiry.search = String(search);
 
@@ -81,11 +83,19 @@ productController.createNewProduct = async (req:AdminRequest, res:Response)=>{
         if(!req.files?.length) throw new Errors(HttpCode.INTERNAL_SERVER_ERROR, Message.CREATION_FAILED);
 
         const data: ProductInput = req.body;
+        // Fix: Properly assign founderId from session and convert ObjectId to string
+        data.founderId = req.member._id.toString();
+        
+        // Fix: Ensure proper image path formatting for static file serving
         data.productImages = req.files?.map(ele =>{
-            return ele.path.replace(/\\/g,"/");// for windows logics
+            // Remove leading ./ from path and ensure consistent forward slashes
+            return ele.path.replace(/\\/g,"/").replace(/^\.\//, "");
         });
+        
+        console.log("Product data:", data);
+        console.log("Product images paths:", data.productImages);
+        
         await productService.createNewProduct(data);
-
 
         res.send(
             `<script> alert("Successfully creation"); window.location.replace('/admin/product/all') </script>`
@@ -95,7 +105,7 @@ productController.createNewProduct = async (req:AdminRequest, res:Response)=>{
         const message = err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
         
         res.send( 
-            `<script> alert("${message}"); window.location.replace('/admin/signup') </script>`
+            `<script> alert("${message}"); window.location.replace('/admin/product/all') </script>`
           );
     }  
 };

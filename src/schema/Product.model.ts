@@ -1,9 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
 import { ProductCategory, ProductMaterialType, ProductStatus, ProductStyleType } from '../libs/enums/product.enum';
-import path from 'path';
-import {
-
-} from '../libs/enums/product.enum'; // ✅ Ensure the path is correct
 
 const productSchema = new Schema(
   {
@@ -55,7 +51,7 @@ const productSchema = new Schema(
     },
     founderId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Founder',  // Use 'Member' or 'Founder' depending on your model name for founders
+      ref: 'Member',  // Fixed: Use 'Member' as the correct reference
       required: true,
     },
   },

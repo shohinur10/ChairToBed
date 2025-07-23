@@ -28,6 +28,15 @@ export interface ProductInput {
   productCategory: ProductCategory;
   productMaterialType: ProductMaterialType;
   productStyleType: ProductStyleType;
+  founderId?: string; // Add founderId to ProductInput
+}
+
+export interface ProductInquiry {
+  order: string;
+  page: number;
+  limit: number;
+  productCategory?: ProductCategory;
+  search?: string;
 }
 
 export interface ProductUpdateInput {
@@ -41,12 +50,4 @@ export interface ProductUpdateInput {
   productCategory?: ProductCategory;
   productMaterialType?: ProductMaterialType;
   productStyleType?: ProductStyleType;
-}
-
-export interface ProductInquiry {
-  order: string;
-  page: number;
-  limit: number;
-  search?: string;
-  productCategory?: ProductCategory;
 }

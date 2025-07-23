@@ -8,10 +8,6 @@ import furnitureController from "./controllers/furniture.controllers";
 routerAdmin.get("/", furnitureController.goHome);
 
 routerAdmin
-  .get("/login", furnitureController.getLogin)
-  .post("/login", furnitureController.processLogin);
-
-routerAdmin
   .get("/signup", furnitureController.getSignup)
   .post(
     "/signup", 
@@ -19,9 +15,12 @@ routerAdmin
     furnitureController.processSignup
   );
 
-routerAdmin.get("/check-me", furnitureController.checkAuthSession); 
-routerAdmin.get("/logout", furnitureController.logout);
+routerAdmin
+  .get("/login", furnitureController.getLogin)
+  .post("/login", furnitureController.processLogin);
 
+// Add logout route
+routerAdmin.get("/logout", furnitureController.logout);
 
 /** ========== Product Routes ========== **/
 routerAdmin.get(
@@ -44,12 +43,18 @@ routerAdmin.post(
   furnitureController.verifyFounder,
   productController.updateChosenProduct
 );
-/**  USER */
-routerAdmin.get("/user/all", furnitureController.verifyFounder,
-    furnitureController.getUsers
+
+/** ========== User Routes ========== **/
+routerAdmin.get(
+  "/user/all", 
+  furnitureController.verifyFounder,
+  furnitureController.getUsers
 );
-routerAdmin.post("/user/edit", furnitureController.verifyFounder,
-    furnitureController.updatedChosenUser
+
+routerAdmin.post(
+  "/user/edit", 
+  furnitureController.verifyFounder,
+  furnitureController.updatedChosenUser
 );
-/** ========== Export ========== **/
+
 export default routerAdmin;
