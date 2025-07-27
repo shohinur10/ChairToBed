@@ -153,8 +153,11 @@ public async addUserPoint(member: Member, point: number): Promise<Member> {
    console.log("→ [About to create member]:", input);
 
 
-   if(exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATION_FAILED);
-   console.log("→ [About to create member]:", input);
+   if(exist) {
+     console.log("→ [Founder already exists, cannot create another founder account]");
+     throw new Errors(HttpCode.BAD_REQUEST, Message.CREATION_FAILED);
+   }
+   console.log("→ [No existing founder found, proceeding with signup]");
 
    const salt = await bcrypt.genSalt();
    input.memberPassword = await bcrypt.hash(input.memberPassword,salt)
@@ -162,8 +165,10 @@ public async addUserPoint(member: Member, point: number): Promise<Member> {
    try{
        const result =  await this.memberModel.create(input);
        result.memberPassword = "";
+       console.log("→ [Member created successfully]:", result.memberNick);
        return result.toObject() as Member;
    } catch(err){
+       console.log("→ [Database creation error]:", err);
        throw new Errors(HttpCode.BAD_REQUEST, Message.CREATION_FAILED);   
    }
 

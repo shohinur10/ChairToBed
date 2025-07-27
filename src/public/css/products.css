@@ -668,6 +668,7 @@ body {
 
 /* Animation for form toggle */
 .dish-container {
+  display: none; /* Initially hidden, toggled by JavaScript */
   animation: slideDown 0.3s ease-out;
 }
 

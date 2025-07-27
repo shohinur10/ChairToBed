@@ -70,8 +70,13 @@ productController.getAllProducts = async (req:Request, res:Response)=>{
         const limit = parseInt(req.query.limit as string) || 10;
         
         const result = await productService.getAllProducts(page, limit);
+        
+        // Cast req to AdminRequest to access member data
+        const adminReq = req as any; // We know this is an AdminRequest due to middleware
+        
         res.render("products", {
             products: result.products,
+            member: adminReq.member || null, // Pass member data to template
             pagination: {
                 currentPage: result.currentPage,
                 totalPages: result.totalPages,

@@ -40,13 +40,8 @@ furnitureController.getLogin = (req: Request, res: Response) => {
     
   }
 };
-furnitureController.processSignup = async (
-  req: AdminRequest,
-  res: Response
-) => {
+furnitureController.processSignup = async (req: AdminRequest, res: Response) => {
   try {
-    console.log("processSignup");
-    console.log("req.body:", req.body);
     const file = req.file;
     if (!file)
       throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
@@ -54,6 +49,8 @@ furnitureController.processSignup = async (
     const newMember: MemberInput = req.body;
     newMember.memberImage = file?.path;
     newMember.memberType = MemberType.FOUNDER;
+    
+    console.log("→ [Processing signup for]:", newMember.memberNick);
     const result = await memberService.processSignup(newMember);
     //TODO: SESSIONS AUTHENTICATION
     req.session.member = result;
@@ -62,10 +59,26 @@ furnitureController.processSignup = async (
     });
   } catch (err) {
     console.log("ERROR, processSignup", err);
-    const message =
-      err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+    let message: string = Message.SOMETHING_WENT_WRONG;
+    
+    if (err instanceof Errors) {
+      if (err.message === Message.CREATION_FAILED) {
+        // Check if it's because founder already exists
+        message = "Business account already exists! Please use the login page to access your account.";
+      } else {
+        message = err.message;
+      }
+    }
+    
     res.send(
-      `<script> alert("${message}"); window.location.replace('/admin/signup') </script>`
+      `<script> 
+        alert("${message}"); 
+        // Redirect to login if founder exists, otherwise back to signup
+        ${message.includes("already exists") ? 
+          "window.location.replace('/admin/login')" : 
+          "window.location.replace('/admin/signup')"
+        }
+      </script>`
     );
   }
 };

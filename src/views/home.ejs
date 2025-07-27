@@ -3,265 +3,268 @@
 <link rel="stylesheet" type="text/css" href="/css/home.css" />
 
 <body>
-  <!-- Floating Furniture Background -->
-  <div class="furniture-bg">
-    <div class="floating-furniture chair">🪑</div>
-    <div class="floating-furniture sofa">🛋️</div>
-    <div class="floating-furniture bed">🛏️</div>
-    <div class="floating-furniture table">🪑</div>
-    <div class="floating-furniture lamp">🪔</div>
-    <div class="floating-furniture plant">🪴</div>
+  <!-- Cosmic Animation Background -->
+  <div class="cosmic-space">
+    <!-- Animated Stars -->
+    <div class="stars-layer layer-1"></div>
+    <div class="stars-layer layer-2"></div>
+    <div class="stars-layer layer-3"></div>
+    
+    <!-- Floating Planets -->
+    <div class="planet planet-1">
+      <div class="planet-surface"></div>
+      <div class="planet-atmosphere"></div>
+      <div class="planet-ring"></div>
+    </div>
+    <div class="planet planet-2">
+      <div class="planet-surface"></div>
+      <div class="planet-glow"></div>
+    </div>
+    <div class="planet planet-3">
+      <div class="planet-surface"></div>
+      <div class="planet-spots"></div>
+    </div>
+    
+    <!-- Cosmic Dust -->
+    <div class="cosmic-dust">
+      <div class="dust-particle"></div>
+      <div class="dust-particle"></div>
+      <div class="dust-particle"></div>
+      <div class="dust-particle"></div>
+      <div class="dust-particle"></div>
+    </div>
+    
+    <!-- Nebula Effects -->
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
   </div>
 
-  <!-- Wood Texture Background -->
-  <div class="wood-texture-bg"></div>
-  
-  <!-- Room Blueprint Grid -->
-  <div class="blueprint-grid">
-    <div class="room-outline"></div>
-    <div class="grid-dots"></div>
+  <!-- Quantum Grid Overlay -->
+  <div class="quantum-grid">
+    <div class="grid-line horizontal" style="top: 20%;"></div>
+    <div class="grid-line horizontal" style="top: 40%;"></div>
+    <div class="grid-line horizontal" style="top: 60%;"></div>
+    <div class="grid-line horizontal" style="top: 80%;"></div>
+    <div class="grid-line vertical" style="left: 20%;"></div>
+    <div class="grid-line vertical" style="left: 40%;"></div>
+    <div class="grid-line vertical" style="left: 60%;"></div>
+    <div class="grid-line vertical" style="left: 80%;"></div>
   </div>
 
-  <!-- Main Container -->
-  <div class="home-container">
-    <!-- Cozy Header -->
-    <header class="cozy-header">
-      <div class="header-warmth"></div>
+  <!-- Header -->
+  <header class="cosmic-header">
+    <div class="header-container">
       <div class="brand-section">
-        <div class="furniture-logo">
-          <div class="logo-chair">
-            <div class="chair-back"></div>
-            <div class="chair-seat"></div>
-            <div class="chair-legs"></div>
-          </div>
-          <div class="transform-arrow">→</div>
-          <div class="logo-bed">
-            <div class="bed-frame"></div>
-            <div class="bed-mattress"></div>
-            <div class="bed-pillow"></div>
+        <div class="cosmic-logo">
+          <div class="logo-orbit">
+            <div class="orbit-ring ring-1"></div>
+            <div class="orbit-ring ring-2"></div>
+            <div class="orbit-ring ring-3"></div>
+            <div class="logo-core">
+              <span class="logo-icon">🪑</span>
+              <div class="transformation-beam"></div>
+              <span class="logo-icon">🛏️</span>
+            </div>
           </div>
         </div>
         <div class="brand-info">
-          <h1 class="furniture-title">ChairToBed</h1>
-          <span class="furniture-subtitle">FURNITURE ADMIN PANEL</span>
+          <h1 class="brand-title">ChairToBed</h1>
+          <p class="brand-subtitle">Furniture Universe Command Center</p>
         </div>
       </div>
       
-      <!-- Business Status -->
-      <div class="business-status">
-        <div class="status-item">
-          <span class="status-dot online"></span>
-          <span class="status-text">SHOWROOM OPEN</span>
-        </div>
-        <div class="status-item">
-          <span class="status-dot"></span>
-          <span class="status-text">WAREHOUSE READY</span>
+      <nav class="cosmic-navigation">
+        <a href="/admin/product/all" class="nav-button">
+          <div class="nav-glow"></div>
+          <span class="nav-icon">📦</span>
+          <span class="nav-text">Products</span>
+          <div class="nav-particles"></div>
+        </a>
+        <a href="/admin/user/all" class="nav-button">
+          <div class="nav-glow"></div>
+          <span class="nav-icon">👥</span>
+          <span class="nav-text">Users</span>
+          <div class="nav-particles"></div>
+        </a>
+        <a href="/admin/profile" class="nav-button">
+          <div class="nav-glow"></div>
+          <span class="nav-icon">👤</span>
+          <span class="nav-text">Profile</span>
+          <div class="nav-particles"></div>
+        </a>
+        <a href="/admin/logout" class="nav-button logout">
+          <div class="nav-glow"></div>
+          <span class="nav-icon">🚀</span>
+          <span class="nav-text">Exit</span>
+          <div class="nav-particles"></div>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="cosmic-main">
+    <!-- Welcome Portal -->
+    <div class="welcome-portal">
+      <div class="portal-frame">
+        <div class="portal-energy"></div>
+        <div class="portal-core">
+          <h2 class="portal-title">Welcome to the Furniture Universe</h2>
+          <p class="portal-message">Managing your cosmic furniture collection</p>
+          <div class="portal-stats">
+            <div class="stat-orb">
+              <div class="orb-energy"></div>
+              <div class="stat-value" id="cosmic-products">0</div>
+              <div class="stat-label">Products</div>
+            </div>
+            <div class="stat-orb">
+              <div class="orb-energy"></div>
+              <div class="stat-value" id="cosmic-users">0</div>
+              <div class="stat-label">Users</div>
+            </div>
+            <div class="stat-orb">
+              <div class="orb-energy"></div>
+              <div class="stat-value" id="cosmic-orders">0</div>
+              <div class="stat-label">Orders</div>
+            </div>
+          </div>
         </div>
       </div>
-    </header>
+    </div>
 
-    <!-- Navigation Room -->
-    <nav class="furniture-nav">
-      <div class="nav-room">
-        <div class="nav-furniture-grid">
-          <a href="/admin" class="furniture-item active">
-            <div class="item-3d">
-              <div class="item-top"></div>
-              <div class="item-front">🏠</div>
-              <div class="item-right"></div>
-            </div>
-            <span class="item-label">HOME</span>
-          </a>
+    <!-- Transformation Engine -->
+    <div class="transformation-engine">
+      <div class="engine-container">
+        <div class="engine-title">
+          <h3>Furniture Transformation Engine</h3>
+          <p>Converting comfort across dimensions</p>
+        </div>
+        
+        <div class="transformation-visual">
+          <div class="transform-item chair-form">
+            <div class="item-energy"></div>
+            <div class="item-core">🪑</div>
+            <div class="item-label">Chair Mode</div>
+          </div>
           
-          <% if(!member) { %>
-            <a href="/admin/signup" class="furniture-item">
-              <div class="item-3d">
-                <div class="item-top"></div>
-                <div class="item-front">📝</div>
-                <div class="item-right"></div>
-              </div>
-              <span class="item-label">REGISTER</span>
-            </a>
-            <a href="/admin/login" class="furniture-item">
-              <div class="item-3d">
-                <div class="item-top"></div>
-                <div class="item-front">🔑</div>
-                <div class="item-right"></div>
-              </div>
-              <span class="item-label">LOGIN</span>
-            </a>
-          <% } else { %>
-            <a href="/admin/product/all" class="furniture-item">
-              <div class="item-3d">
-                <div class="item-top"></div>
-                <div class="item-front">🛋️</div>
-                <div class="item-right"></div>
-              </div>
-              <span class="item-label">PRODUCTS</span>
-            </a>
-            <a href="/admin/user/all" class="furniture-item">
-              <div class="item-3d">
-                <div class="item-top"></div>
-                <div class="item-front">👥</div>
-                <div class="item-right"></div>
-              </div>
-              <span class="item-label">CUSTOMERS</span>
-            </a>
-            <a href="/admin/profile" class="furniture-item">
-              <div class="item-3d">
-                <div class="item-top"></div>
-                <div class="item-front">👤</div>
-                <div class="item-right"></div>
-              </div>
-              <span class="item-label">PROFILE</span>
-            </a>
-            <a href="/admin/logout" class="furniture-item logout" onclick="return confirm('Close admin session?')">
-              <div class="item-3d">
-                <div class="item-top"></div>
-                <div class="item-front">🚪</div>
-                <div class="item-right"></div>
-              </div>
-              <span class="item-label">LOGOUT</span>
-            </a>
-          <% } %>
+          <div class="transformation-beam-container">
+            <div class="beam-particle"></div>
+            <div class="beam-particle"></div>
+            <div class="beam-particle"></div>
+            <div class="transformation-wave"></div>
+          </div>
+          
+          <div class="transform-item bed-form">
+            <div class="item-energy"></div>
+            <div class="item-core">🛏️</div>
+            <div class="item-label">Bed Mode</div>
+          </div>
+        </div>
+        
+        <div class="transformation-controls">
+          <button class="cosmic-button primary" onclick="triggerTransformation()">
+            <div class="btn-energy"></div>
+            <span class="btn-text">Initiate Transformation</span>
+            <div class="btn-ripple"></div>
+          </button>
         </div>
       </div>
-    </nav>
+    </div>
 
-    <!-- Central Showroom -->
-    <main class="showroom-main">
-      <div class="showroom-container">
-        <!-- Chair to Bed Transformation -->
-        <div class="transformation-showcase">
-          <div class="showcase-room">
-            <div class="furniture-transformation">
-              <div class="transform-chair">
-                <div class="chair-structure">
-                  <div class="backrest"></div>
-                  <div class="seat"></div>
-                  <div class="armrest left"></div>
-                  <div class="armrest right"></div>
-                  <div class="leg leg-1"></div>
-                  <div class="leg leg-2"></div>
-                  <div class="leg leg-3"></div>
-                  <div class="leg leg-4"></div>
-                </div>
+    <!-- Command Modules -->
+    <div class="command-modules">
+      <div class="module-grid">
+        <div class="command-module" data-module="inventory">
+          <div class="module-header">
+            <div class="module-icon">📊</div>
+            <h4>Inventory Scan</h4>
+          </div>
+          <div class="module-content">
+            <div class="scan-line"></div>
+            <div class="module-stats">
+              <div class="mini-stat">
+                <span class="stat-number" id="total-products">0</span>
+                <span class="stat-text">Items</span>
               </div>
-              <div class="transform-arrow-big">
-                <span class="arrow-text">TRANSFORMS TO</span>
-                <div class="arrow-line"></div>
+              <div class="mini-stat">
+                <span class="stat-number" id="active-products">0</span>
+                <span class="stat-text">Active</span>
               </div>
-              <div class="transform-bed">
-                <div class="bed-structure">
-                  <div class="bed-base"></div>
-                  <div class="mattress"></div>
-                  <div class="pillow pillow-1"></div>
-                  <div class="pillow pillow-2"></div>
-                  <div class="blanket"></div>
-                </div>
-              </div>
-            </div>
-            <div class="room-elements">
-              <div class="floor-pattern"></div>
-              <div class="wall-art"></div>
-              <div class="window-light"></div>
             </div>
           </div>
+          <a href="/admin/product/all" class="module-link">
+            <span>Access Inventory</span>
+            <div class="link-glow"></div>
+          </a>
         </div>
 
-        <!-- Business Stats -->
-        <div class="business-stats">
-          <div class="stat-showcase">
-            <div class="stat-header">
-              <div class="stat-icon">🛋️</div>
-              <span class="stat-title">FURNITURE IN STOCK</span>
+        <div class="command-module" data-module="users">
+          <div class="module-header">
+            <div class="module-icon">👨‍🚀</div>
+            <h4>User Network</h4>
+          </div>
+          <div class="module-content">
+            <div class="network-visualization">
+              <div class="network-node active"></div>
+              <div class="network-node"></div>
+              <div class="network-node"></div>
+              <div class="network-connection"></div>
+              <div class="network-connection"></div>
             </div>
-            <div class="stat-value">
-              <span class="stat-number">247</span>
-              <span class="stat-unit">pieces</span>
-            </div>
-            <div class="stat-bar">
-              <div class="stat-fill wood-texture" style="width: 85%"></div>
+            <div class="module-stats">
+              <div class="mini-stat">
+                <span class="stat-number" id="total-users">0</span>
+                <span class="stat-text">Connected</span>
+              </div>
             </div>
           </div>
-
-          <div class="stat-showcase">
-            <div class="stat-header">
-              <div class="stat-icon">👥</div>
-              <span class="stat-title">HAPPY CUSTOMERS</span>
-            </div>
-            <div class="stat-value">
-              <span class="stat-number">1,234</span>
-              <span class="stat-unit">families</span>
-            </div>
-            <div class="stat-bar">
-              <div class="stat-fill wood-texture" style="width: 92%"></div>
-            </div>
-          </div>
-
-          <div class="stat-showcase">
-            <div class="stat-header">
-              <div class="stat-icon">🏠</div>
-              <span class="stat-title">ROOMS FURNISHED</span>
-            </div>
-            <div class="stat-value">
-              <span class="stat-number">856</span>
-              <span class="stat-unit">rooms</span>
-            </div>
-            <div class="stat-bar">
-              <div class="stat-fill wood-texture" style="width: 76%"></div>
-            </div>
-          </div>
+          <a href="/admin/user/all" class="module-link">
+            <span>Access Network</span>
+            <div class="link-glow"></div>
+          </a>
         </div>
 
-        <!-- Welcome Interface -->
-        <div class="welcome-home">
-          <% if(member) { %>
-            <div class="manager-greeting">
-              <span class="greeting-icon">🏡</span>
-              <div class="greeting-content">
-                <span class="welcome-text">Welcome back, </span>
-                <span class="manager-name"><%= member.memberNick %></span>
-                <div class="home-message">Your furniture empire awaits</div>
+        <div class="command-module" data-module="analytics">
+          <div class="module-header">
+            <div class="module-icon">📡</div>
+            <h4>Data Analytics</h4>
+          </div>
+          <div class="module-content">
+            <div class="data-stream">
+              <div class="stream-line"></div>
+              <div class="stream-line"></div>
+              <div class="stream-line"></div>
+            </div>
+            <div class="module-stats">
+              <div class="mini-stat">
+                <span class="stat-number">98%</span>
+                <span class="stat-text">Efficiency</span>
               </div>
             </div>
-          <% } else { %>
-            <div class="visitor-welcome">
-              <span class="welcome-title">🏠 Welcome to ChairToBed Admin</span>
-              <p class="welcome-desc">Transform your furniture business with our management system</p>
-              <div class="welcome-actions">
-                <a href="/admin/login" class="cozy-btn primary">
-                  <span class="btn-icon">🔑</span>
-                  <span class="btn-text">Enter Admin</span>
-                  <div class="btn-warmth"></div>
-                </a>
-                <a href="/admin/signup" class="cozy-btn secondary">
-                  <span class="btn-icon">📝</span>
-                  <span class="btn-text">Join Us</span>
-                  <div class="btn-warmth"></div>
-                </a>
-              </div>
-            </div>
-          <% } %>
+          </div>
+          <div class="module-link inactive">
+            <span>Coming Soon</span>
+            <div class="link-glow"></div>
+          </div>
         </div>
       </div>
-    </main>
+    </div>
+  </main>
 
-    <!-- Footer Workshop -->
-    <footer class="workshop-footer">
-      <div class="workshop-bench">
-        <div class="bench-tools">
-          <span class="tool">🔨</span>
-          <span class="tool">🪚</span>
-          <span class="tool">📏</span>
-        </div>
-        <div class="craft-message">
-          <span class="craft-text">Crafted with love since 2024</span>
-          <span class="craft-location">• Made for comfortable homes</span>
-        </div>
+  <!-- Quantum Footer -->
+  <footer class="quantum-footer">
+    <div class="footer-content">
+      <div class="quantum-signature">
+        <div class="signature-pattern"></div>
+        <p>ChairToBed - Transcending Furniture Dimensions Since 2024</p>
       </div>
-    </footer>
-  </div>
+      <div class="system-status">
+        <div class="status-indicator active"></div>
+        <span>All Systems Operational</span>
+      </div>
+    </div>
+  </footer>
 
   <script type="text/javascript" src="/js/home.js"></script>
 </body>
