@@ -94,7 +94,7 @@ $(function(){
         }
     });
 
-    // Update product process codes 
+// Update product process codes 
     $(".new-product-status").on("change", async function(e) {
         const id = e.target.id;
         const productStatus = e.target.value;
@@ -106,10 +106,10 @@ $(function(){
                 {productStatus: productStatus});
             console.log("Product status update response:", response);
             
-            const result = response.data;
-            if(result.data){
-                console.log("Product updated!");
-                $(".new-product-status").blur();
+                const result = response.data;
+                if(result.data){
+                    console.log("Product updated!");
+                    $(".new-product-status").blur();
                 alert("Product status updated successfully!");
             } else {
                 alert("Product update failed!");
@@ -126,7 +126,7 @@ $(function(){
         
         if (!validateForm()) {
             e.preventDefault();
-            return false;
+        return false;
         }
         
         // Show loading state

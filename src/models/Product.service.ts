@@ -112,7 +112,7 @@ class ProductService {
         currentPage: page,
         totalPages: Math.ceil(total / limit)
       };
-    }
+  }
 
 public async createNewProduct(input: ProductInput): Promise<Product> {
     try {

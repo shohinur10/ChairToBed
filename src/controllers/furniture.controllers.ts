@@ -133,7 +133,7 @@ furnitureController.logout = async (req: AdminRequest, res: Response) => {
       
       res.clearCookie("connect.sid"); // Clear the session cookie
       res.redirect("/admin/login");
-    });
+     });
   } catch (err) {
     console.log("Error, logout:", err);
     res.redirect("/admin/login");

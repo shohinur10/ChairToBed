@@ -86,7 +86,7 @@ memberController.logout = (req: ExtendedRequest, res: Response) =>{
     console.log("Error, logout:", err);
     // Even if there's an error, return success for logout
     res.status(HttpCode.OK).json({ logout: true, message: "Logged out" });
-  }
+}
 };
 
 memberController.getMemberDetails =  async (req: ExtendedRequest, res: Response) =>{

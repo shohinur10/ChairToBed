@@ -210,23 +210,23 @@ body {
   font-weight: 600;
   color: white;
   margin-bottom: 0.5rem;
-}
+  }
 
 .form-header p {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.95rem;
-}
+  }
 
 .form-group {
   margin-bottom: 1.5rem;
   animation: fadeInUp 0.8s ease-out 0.6s both;
-}
+  }
 
 .input-container {
   position: relative;
   display: flex;
   align-items: center;
-}
+  }
 
 .input-icon {
   position: absolute;

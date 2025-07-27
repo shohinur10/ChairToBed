@@ -40,7 +40,7 @@ router.post("/member/update-image",
         });
     },
     memberController.updateMemberImage
-);
+    );
 
 router.get("/member/top-users",
     memberController.getTopUsers
