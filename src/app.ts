@@ -1,7 +1,7 @@
 import cors from "cors"; // CORS - Cross-Origin Resource Sharing
 import express from "express";
 import path from "path";
-import router from "../src/router";
+import router from "./router";
 import routerAdmin from "./router-admin";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
@@ -9,6 +9,8 @@ import {MORGAN_FORMAT} from "./libs/utils/config";
 import session from "express-session";//foydalanuvchi ma'lumotlarini vaqtincha saqlash) uchun ishlatiladi.
 import ConnectMongoDB from "connect-mongodb-session";//Session ma'lumotlarini MongoDB bazasida saqlash uchun ishlatiladi.
 import { T } from "./libs/types/common";
+import {Server as SocketIOServer} from "socket.io";
+import http from "http"
 
 
 
@@ -54,6 +56,26 @@ app.set('view engine', 'ejs');
 // 4- Routing 
 app.use("/admin", routerAdmin);//SSR = Service Site Rendining : EJS admin uchun 
 app.use("/", router);// SPA - single page application : REACT  loyihamizda REST API korinishida ishlatamiuz  public uchun  
+
+
+const server =http.createServer(app);
+const io = new SocketIOServer(server,{
+    cors:{
+        origin : true ,
+        credentials:true,
+    },
+});
+
+let summaryClient =0;
+io.on("connection",(socket) => {
+    summaryClient++;
+    console.log(`${summaryClient} a user connected`);
+    socket.on("disconnect",() => {
+        summaryClient--;
+        console.log(`${summaryClient} a user disconnected`);
+    });
+});
+
 
 
 export default app;

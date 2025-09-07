@@ -1,0 +1,272 @@
+<%- include('includes/header') %>
+
+<link rel="stylesheet" type="text/css" href="/css/home.css" />
+
+<body>
+  <!-- Cosmic Animation Background -->
+  <div class="cosmic-space">
+    <!-- Animated Stars -->
+    <div class="stars-layer layer-1"></div>
+    <div class="stars-layer layer-2"></div>
+    <div class="stars-layer layer-3"></div>
+    
+    <!-- Floating Planets -->
+    <div class="planet planet-1">
+      <div class="planet-surface"></div>
+      <div class="planet-atmosphere"></div>
+      <div class="planet-ring"></div>
+    </div>
+    <div class="planet planet-2">
+      <div class="planet-surface"></div>
+      <div class="planet-glow"></div>
+    </div>
+    <div class="planet planet-3">
+      <div class="planet-surface"></div>
+      <div class="planet-spots"></div>
+    </div>
+    
+    <!-- Cosmic Dust -->
+    <div class="cosmic-dust">
+      <div class="dust-particle"></div>
+      <div class="dust-particle"></div>
+      <div class="dust-particle"></div>
+      <div class="dust-particle"></div>
+      <div class="dust-particle"></div>
+    </div>
+
+    <!-- Nebula Effects -->
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+  </div>
+
+  <!-- Quantum Grid Overlay -->
+  <div class="quantum-grid">
+    <div class="grid-line horizontal" style="top: 20%;"></div>
+    <div class="grid-line horizontal" style="top: 40%;"></div>
+    <div class="grid-line horizontal" style="top: 60%;"></div>
+    <div class="grid-line horizontal" style="top: 80%;"></div>
+    <div class="grid-line vertical" style="left: 20%;"></div>
+    <div class="grid-line vertical" style="left: 40%;"></div>
+    <div class="grid-line vertical" style="left: 60%;"></div>
+    <div class="grid-line vertical" style="left: 80%;"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="cosmic-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <div class="cosmic-logo">
+          <div class="logo-orbit">
+            <div class="orbit-ring ring-1"></div>
+            <div class="orbit-ring ring-2"></div>
+            <div class="orbit-ring ring-3"></div>
+            <div class="logo-core">
+              <span class="logo-icon">🪑</span>
+              <div class="transformation-beam"></div>
+              <span class="logo-icon">🛏️</span>
+            </div>
+          </div>
+        </div>
+        <div class="brand-info">
+          <h1 class="brand-title">ChairToBed</h1>
+          <p class="brand-subtitle">Furniture Universe Command Center</p>
+        </div>
+      </div>
+      
+      <nav class="cosmic-navigation">
+        <a href="/admin/product/all" class="nav-button">
+          <div class="nav-glow"></div>
+          <span class="nav-icon">📦</span>
+          <span class="nav-text">Products</span>
+          <div class="nav-particles"></div>
+        </a>
+        <a href="/admin/user/all" class="nav-button">
+          <div class="nav-glow"></div>
+          <span class="nav-icon">👥</span>
+          <span class="nav-text">Users</span>
+          <div class="nav-particles"></div>
+        </a>
+        <a href="/admin/profile" class="nav-button">
+          <div class="nav-glow"></div>
+          <span class="nav-icon">👤</span>
+          <span class="nav-text">Profile</span>
+          <div class="nav-particles"></div>
+        </a>
+        <a href="/admin/logout" class="nav-button logout">
+          <div class="nav-glow"></div>
+          <span class="nav-icon">🚀</span>
+          <span class="nav-text">Exit</span>
+          <div class="nav-particles"></div>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="cosmic-main">
+    <!-- Welcome Portal -->
+    <div class="welcome-portal">
+      <div class="portal-frame">
+        <div class="portal-energy"></div>
+        <div class="portal-core">
+          <h2 class="portal-title">Welcome to the Furniture Universe</h2>
+          <p class="portal-message">Managing your cosmic furniture collection</p>
+          <div class="portal-stats">
+            <div class="stat-orb">
+              <div class="orb-energy"></div>
+              <div class="stat-value" id="cosmic-products">0</div>
+              <div class="stat-label">Products</div>
+            </div>
+            <div class="stat-orb">
+              <div class="orb-energy"></div>
+              <div class="stat-value" id="cosmic-users">0</div>
+              <div class="stat-label">Users</div>
+            </div>
+            <div class="stat-orb">
+              <div class="orb-energy"></div>
+              <div class="stat-value" id="cosmic-orders">0</div>
+              <div class="stat-label">Orders</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transformation Engine -->
+    <div class="transformation-engine">
+      <div class="engine-container">
+        <div class="engine-title">
+          <h3>Furniture Transformation Engine</h3>
+          <p>Converting comfort across dimensions</p>
+        </div>
+        
+        <div class="transformation-visual">
+          <div class="transform-item chair-form">
+            <div class="item-energy"></div>
+            <div class="item-core">🪑</div>
+            <div class="item-label">Chair Mode</div>
+          </div>
+          
+          <div class="transformation-beam-container">
+            <div class="beam-particle"></div>
+            <div class="beam-particle"></div>
+            <div class="beam-particle"></div>
+            <div class="transformation-wave"></div>
+          </div>
+          
+          <div class="transform-item bed-form">
+            <div class="item-energy"></div>
+            <div class="item-core">🛏️</div>
+            <div class="item-label">Bed Mode</div>
+    </div>
+  </div>
+        
+        <div class="transformation-controls">
+          <button class="cosmic-button primary" onclick="triggerTransformation()">
+            <div class="btn-energy"></div>
+            <span class="btn-text">Initiate Transformation</span>
+            <div class="btn-ripple"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Command Modules -->
+    <div class="command-modules">
+      <div class="module-grid">
+        <div class="command-module" data-module="inventory">
+          <div class="module-header">
+            <div class="module-icon">📊</div>
+            <h4>Inventory Scan</h4>
+          </div>
+          <div class="module-content">
+            <div class="scan-line"></div>
+            <div class="module-stats">
+              <div class="mini-stat">
+                <span class="stat-number" id="total-products">0</span>
+                <span class="stat-text">Items</span>
+              </div>
+              <div class="mini-stat">
+                <span class="stat-number" id="active-products">0</span>
+                <span class="stat-text">Active</span>
+              </div>
+            </div>
+          </div>
+          <a href="/admin/product/all" class="module-link">
+            <span>Access Inventory</span>
+            <div class="link-glow"></div>
+          </a>
+        </div>
+
+        <div class="command-module" data-module="users">
+          <div class="module-header">
+            <div class="module-icon">👨‍🚀</div>
+            <h4>User Network</h4>
+          </div>
+          <div class="module-content">
+            <div class="network-visualization">
+              <div class="network-node active"></div>
+              <div class="network-node"></div>
+              <div class="network-node"></div>
+              <div class="network-connection"></div>
+              <div class="network-connection"></div>
+            </div>
+            <div class="module-stats">
+              <div class="mini-stat">
+                <span class="stat-number" id="total-users">0</span>
+                <span class="stat-text">Connected</span>
+              </div>
+            </div>
+          </div>
+          <a href="/admin/user/all" class="module-link">
+            <span>Access Network</span>
+            <div class="link-glow"></div>
+          </a>
+        </div>
+
+        <div class="command-module" data-module="analytics">
+          <div class="module-header">
+            <div class="module-icon">📡</div>
+            <h4>Data Analytics</h4>
+          </div>
+          <div class="module-content">
+            <div class="data-stream">
+              <div class="stream-line"></div>
+              <div class="stream-line"></div>
+              <div class="stream-line"></div>
+            </div>
+            <div class="module-stats">
+              <div class="mini-stat">
+                <span class="stat-number">98%</span>
+                <span class="stat-text">Efficiency</span>
+              </div>
+            </div>
+          </div>
+          <div class="module-link inactive">
+            <span>Coming Soon</span>
+            <div class="link-glow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Quantum Footer -->
+  <footer class="quantum-footer">
+    <div class="footer-content">
+      <div class="quantum-signature">
+        <div class="signature-pattern"></div>
+        <p>ChairToBed - Transcending Furniture Dimensions Since 2024</p>
+      </div>
+      <div class="system-status">
+        <div class="status-indicator active"></div>
+        <span>All Systems Operational</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="/js/home.js"></script>
+</body>
+
+<%- include('includes/footer') %>

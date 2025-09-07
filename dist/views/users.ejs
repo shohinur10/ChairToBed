@@ -1,0 +1,236 @@
+<%- include('includes/header') %>
+
+<link rel="stylesheet" type="text/css" href="/css/users.css" />
+
+<body>
+  <div class="users-container">
+    <% if(!member) { %>
+      <!-- Modern Header for Non-Authenticated Users -->
+      <header class="modern-header">
+        <div class="header-content">
+          <div class="logo-section">
+            <h1 class="brand-title">ChairToBed</h1>
+            <span class="admin-badge">Admin Panel</span>
+          </div>
+          <nav class="modern-nav">
+            <a href="/admin/" class="nav-item active">
+              <i class="nav-icon">🏠</i>
+              <span>Home</span>
+            </a>
+            <a href="/admin/signup" class="nav-item">
+              <i class="nav-icon">📝</i>
+              <span>SignUp</span>
+            </a>
+            <a href="/admin/login" class="nav-item">
+              <i class="nav-icon">🔐</i>
+              <span>Login</span>
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Authentication Required Message -->
+      <main class="main-content">
+        <div class="container">
+          <div class="auth-required-card">
+            <div class="auth-icon">🔒</div>
+            <h2 class="auth-title">Authentication Required</h2>
+            <p class="auth-message">Please login first to access the user management panel.</p>
+            <a href="/admin/login" class="btn-modern btn-primary">
+              <i class="btn-icon">🔐</i>
+              Login Now
+            </a>
+          </div>
+        </div>
+      </main>
+
+    <% } else { %>
+      <!-- Modern Header for Authenticated Users -->
+      <header class="modern-header">
+        <div class="header-content">
+          <div class="logo-section">
+            <h1 class="brand-title">ChairToBed</h1>
+            <span class="admin-badge">Admin Panel</span>
+          </div>
+          <nav class="modern-nav">
+            <a href="/admin/" class="nav-item">
+              <i class="nav-icon">🏠</i>
+              <span>Dashboard</span>
+            </a>
+            <a href="/admin/product/all" class="nav-item">
+              <i class="nav-icon">📦</i>
+              <span>Products</span>
+            </a>
+            <a href="/admin/user/all" class="nav-item active">
+              <i class="nav-icon">👥</i>
+              <span>Users</span>
+            </a>
+            <a href="/admin/profile" class="nav-item">
+              <i class="nav-icon">👤</i>
+              <span>Profile</span>
+            </a>
+            <a href="/admin/logout" class="nav-item logout" onclick="return confirm('Do you really want to logout?')">
+              <i class="nav-icon">🚪</i>
+              <span>Logout</span>
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="container">
+          <!-- Users Section -->
+          <section class="users-section">
+            <div class="section-header">
+              <div class="header-left">
+                <h2 class="section-title">User Management</h2>
+                <p class="section-subtitle">Manage customer accounts and permissions</p>
+              </div>
+              <div class="header-stats">
+                <div class="stat-card">
+                  <div class="stat-number"><%= users.length %></div>
+                  <div class="stat-label">Total Users</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-number"><%= users.filter(u => u.memberStatus === 'ACTIVE').length %></div>
+                  <div class="stat-label">Active</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-number"><%= users.filter(u => u.memberStatus === 'BLOCK').length %></div>
+                  <div class="stat-label">Blocked</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modern Users Table Card -->
+            <div class="table-card">
+              <div class="table-header">
+                <h3 class="table-title">
+                  <i class="title-icon">👥</i>
+                  All Users List
+                </h3>
+                <div class="table-actions">
+                  <div class="search-box">
+                    <input type="text" placeholder="Search users..." class="search-input" id="userSearch">
+                    <i class="search-icon">🔍</i>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="table-container">
+                <table class="modern-table">
+                  <thead>
+                    <tr>
+                      <th class="col-number">#</th>
+                      <th class="col-name">User Information</th>
+                      <th class="col-phone">Contact</th>
+                      <th class="col-status">Status</th>
+                      <th class="col-actions">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% users.map(function(value, index) { %>
+                      <tr class="table-row user-row" data-user-name="<%= value.memberNick.toLowerCase() %>" data-user-phone="<%= value.memberPhone %>">
+                        <td class="row-number"><%= index + 1 %></td>
+                        <td class="user-info-cell">
+                          <div class="user-profile">
+                            <div class="user-avatar">
+                              <% if (value.memberImage) { %>
+                                <img src="/<%= value.memberImage %>" alt="<%= value.memberNick %>" class="avatar-img">
+                              <% } else { %>
+                                <div class="avatar-placeholder">
+                                  <%= value.memberNick.charAt(0).toUpperCase() %>
+                                </div>
+                              <% } %>
+                            </div>
+                            <div class="user-details">
+                              <div class="user-name"><%= value.memberNick %></div>
+                              <div class="user-type">
+                                <span class="type-badge type-<%= value.memberType.toLowerCase() %>">
+                                  <%= value.memberType %>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="contact-cell">
+                          <div class="contact-info">
+                            <div class="phone-number">
+                              <i class="contact-icon">📞</i>
+                              <%= value.memberPhone %>
+                            </div>
+                            <div class="join-date">
+                              <i class="contact-icon">📅</i>
+                              <%= new Date(value.createAt).toLocaleDateString() %>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="status-cell">
+                          <span class="status-badge status-<%= value.memberStatus.toLowerCase() %>">
+                            <i class="status-icon">
+                              <%= value.memberStatus === 'ACTIVE' ? '✅' : 
+                                  value.memberStatus === 'BLOCK' ? '🚫' : '🗑️' %>
+                            </i>
+                            <%= value.memberStatus %>
+                          </span>
+                        </td>
+                        <td class="actions-cell">
+                          <div class="action-controls">
+                            <select class="modern-select member-status" id="<%= value._id %>">
+                              <option value="ACTIVE" <%= value.memberStatus === 'ACTIVE' ? 'selected' : '' %>>
+                                ✅ Active
+                              </option>
+                              <option value="BLOCK" <%= value.memberStatus === 'BLOCK' ? 'selected' : '' %>>
+                                🚫 Block
+                              </option>
+                              <option value="DELETE" <%= value.memberStatus === 'DELETE' ? 'selected' : '' %>>
+                                🗑️ Delete
+                              </option>
+                            </select>
+                          </div>
+                        </td>
+                      </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+
+                <% if (users.length === 0) { %>
+                  <div class="empty-state">
+                    <div class="empty-icon">👥</div>
+                    <h3 class="empty-title">No Users Found</h3>
+                    <p class="empty-message">There are no users registered in the system yet.</p>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    <% } %>
+  </div>
+
+  <script type="text/javascript" src="/js/users.js"></script>
+  <script>
+    // Modern search functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('userSearch');
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          const searchTerm = this.value.toLowerCase();
+          const userRows = document.querySelectorAll('.user-row');
+          
+          userRows.forEach(row => {
+            const userName = row.dataset.userName;
+            const userPhone = row.dataset.userPhone;
+            const matches = userName.includes(searchTerm) || userPhone.includes(searchTerm);
+            
+            row.style.display = matches ? '' : 'none';
+          });
+        });
+      }
+    });
+  </script>
+</body>
+
+<%- include('includes/footer') %>
